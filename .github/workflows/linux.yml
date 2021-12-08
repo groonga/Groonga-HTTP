@@ -1,7 +1,6 @@
 name: Linux
 on:
   push:
-  tags:
   pull_request:
 jobs:
   test:
