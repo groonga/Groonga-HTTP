@@ -4,27 +4,27 @@ on:
   pull_request:
 jobs:
   test:
-  name: Test
-  strategy:
-    fail-fast: false
-    matrix:
-      label:
-        - AlmaLinux 8
-      include:
-        - label: AlmaLinux 8
-          id: almalinux-8
-  runs-on: ubuntu-20.04
-  steps:
-      - uses: actions/checkout@v2
-        with:
-          submodules: recursive
-      - name: Install dependencies
-        run: |
-          sudo apt update
-          sudo apt -V install \
-            devscripts \
-            ruby
-      - name: Test with docker
-        run: |
-          cd test
-          rake ${{matrix.id}}:test
+    name: Test
+    strategy:
+      fail-fast: false
+      matrix:
+        label:
+          - AlmaLinux 8
+        include:
+          - label: AlmaLinux 8
+            id: almalinux-8
+    runs-on: ubuntu-20.04
+    steps:
+        - uses: actions/checkout@v2
+          with:
+            submodules: recursive
+        - name: Install dependencies
+          run: |
+            sudo apt update
+            sudo apt -V install \
+              devscripts \
+              ruby
+        - name: Test with docker
+          run: |
+            cd test
+            rake ${{matrix.id}}:test
