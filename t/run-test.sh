@@ -14,13 +14,15 @@ case ${major_version} in
     ;;
 esac
 
+# Install packages for executing tests
 ${DNF} install -y \
   https://packages.groonga.org/${os}/${major_version}/groonga-release-latest.noarch.rpm
 
-# Run test
 ${DNF} install -y \
-  cpanminus
+  groonga \
+  groonga-tokenizer-mecab
 
+# Run test
 rm -rf db
 groonga --protocol http -s -n db/db
 

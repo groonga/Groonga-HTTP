@@ -12,13 +12,16 @@ jobs:
           - AlmaLinux 8
         include:
           - label: AlmaLinux 8
+            test-docker-image: almalinux:8
     runs-on: ubuntu-20.04
     steps:
         - uses: actions/checkout@v2
           with:
             submodules: recursive
+        - name: Test
           run: |
-        - name: Test with docker
-          run: |
-            cd test
-            rake ${{matrix.id}}:test
+            docker run \
+              --rm \
+              --volume ${PWD}:/Groonga-HTTP:ro \
+              ${{ matrix.test-docker-image }} \
+              /Groonga-HTTP/t/test.sh
