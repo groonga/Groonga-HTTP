@@ -20,7 +20,9 @@ ${DNF} install -y \
 
 ${DNF} install -y \
   groonga \
-  groonga-tokenizer-mecab
+  groonga-tokenizer-mecab \
+  perl \
+  perl-App-cpanminus
 
 # Run test
 rm -rf db
