@@ -1,6 +1,6 @@
 package Groonga::HTTP;
 
-use LWP;
+use LWP::UserAgent;
 use JSON 'decode_json';
 
 use strict;
