@@ -24,4 +24,4 @@ jobs:
               --rm \
               --volume ${PWD}:/Groonga-HTTP:ro \
               ${{ matrix.test-docker-image }} \
-              /Groonga-HTTP/t/test.sh
+              /Groonga-HTTP/t/run-test.sh
