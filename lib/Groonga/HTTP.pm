@@ -1,6 +1,10 @@
 package Groonga::HTTP;
+
 use strict;
 use warnings;
+
+my $host = '127.0.0.1';
+my $port = 10041;
 
 sub new {
     my ($class, %args) = @_;
