@@ -25,7 +25,7 @@ ${DNF} install -y \
 # Run test
 rm -rf db
 mkdir db
-groonga --protocol http -s -n db/db
+groonga --protocol http -s -n db/db &
 
 prove t
 rm -rf db
