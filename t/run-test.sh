@@ -19,6 +19,7 @@ ${DNF} install -y \
   https://packages.groonga.org/${os}/${major_version}/groonga-release-latest.noarch.rpm
 
 ${DNF} install -y \
+  gcc \
   groonga \
   groonga-tokenizer-mecab \
   perl \
