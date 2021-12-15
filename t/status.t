@@ -1,5 +1,6 @@
 use Test2::V0;
 
+BEGIN { push @INC, '/Groonga-HTTP/lib' }
 use Groonga::HTTP;
 
 my $groonga = Groonga::HTTP->new(
