@@ -1,8 +1,8 @@
 use Test2::V0;
 
-use Groonga-HTTP;
+use Groonga::HTTP;
 
-my $groonga = Groonga-HTTP->new(
+my $groonga = Groonga::HTTP->new(
   host => 'localhost',
 );
 
