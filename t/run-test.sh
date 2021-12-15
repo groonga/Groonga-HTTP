@@ -24,7 +24,9 @@ ${DNF} install -y \
   perl \
   perl-App-cpanminus
 
-# Run test
+# Install Perl Modules for executing tests
+cpanm Test2::V0
+
 rm -rf db
 mkdir db
 groonga --protocol http -s -n db/db &
