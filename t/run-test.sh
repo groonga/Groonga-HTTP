@@ -27,9 +27,12 @@ ${DNF} install -y \
 # Install Perl Modules for executing tests
 cpanm Test2::V0
 
+# Setting Groonga's database for executing tests
 rm -rf db
 mkdir db
 groonga --protocol http -s -n db/db &
 
-prove t
+# Run test
+cd Groonga-HTTP
+prove
 rm -rf db
