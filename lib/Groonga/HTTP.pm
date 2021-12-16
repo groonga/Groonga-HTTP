@@ -44,8 +44,8 @@ sub _make_query {
     my %args = @_;
     my $command = '';
 
-    switch ($args{'command'}) {
-        case 'status' { $command = 'status' }
+    given ($args{'command'}) {
+        when ('status') { $command = 'status'; }
     }
     return "http://${host}:${port}/d/${command}";
 }
