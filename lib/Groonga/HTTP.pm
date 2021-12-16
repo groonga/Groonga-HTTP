@@ -36,7 +36,7 @@ sub status {
             return $groonga_reposnse_code;
         }
     } else {
-        return $response->code;
+        return $http_response->code;
     }
 }
 
