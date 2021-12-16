@@ -23,7 +23,7 @@ sub new {
 }
 
 sub status {
-    my $query = _make_query({command => 'status'});
+    my $query = _make_query(command => 'status');
     my $http_response = _send_to_query($query);
 
     if ($http_response->code == 200) {
