@@ -42,17 +42,16 @@ sub status {
 
 sub _make_query {
     my %args = @_;
-    my $command = '';
+    my $command = $args{'command'};
 
-    given ($args{'command'}) {
-        when ('status') { $command = 'status'; }
-    }
+    # TODO validation
     return "http://${host}:${port}/d/${command}";
 }
 
 sub _send_to_query {
     my $query = shift;
     my $user_agent = LWP::UserAgent->new;
+
     return $user_agent->get($query);
 }
 
