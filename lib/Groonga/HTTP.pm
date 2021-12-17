@@ -1,7 +1,6 @@
 package Groonga::HTTP;
 
 use LWP::UserAgent;
-use JSON 'decode_json';
 use Carp 'croak';
 
 use Groonga::ResultSet;
