@@ -23,7 +23,7 @@ is(
     max_command_version => 3,
     n_jobs => E(),
     features => E(),
-    apache_arrow => E
+    apache_arrow => E()
   },
   "status returns correct responses"
 );
