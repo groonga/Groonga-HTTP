@@ -4,6 +4,7 @@ use LWP::UserAgent;
 
 use Groonga::ResultSet;
 use Groonga::HTTP::Client;
+use Groonga::Commands::Status;
 
 use strict;
 use warnings;
@@ -29,52 +30,9 @@ sub new {
 }
 
 sub status {
-    my $query = _make_query(
-        command => 'status',
-        command_args => {}
-    );
-    my $command_response = undef;
-
-    eval {
-        $command_response = _send_to_query($query);
-    };
-    if (my $request_error = $@) {
-        croak $request_error;
-    }
-    return $command_response;
-}
-
-}
-
-sub _make_query {
-    my %args = @_;
-    my $command_name = $args{'command'};
-    my $command_args = $args{'command_args'};
-    my $command = '';
-
-    # TODO validation
-    if     ($command_name eq 'status') { $command = $command_name; }
-    return "http://${host}:${port}/d/${command}";
-}
-
-sub _send_to_query {
-    my $query = shift;
-    my $user_agent = LWP::UserAgent->new;
-
-    my $http_response = $user_agent->get($query);
-    if ($http_response->is_success) {
-        my $groonga_response =
-            Groonga::ResultSet->new(
-                decoded_content => $http_response->decoded_content
-            );
-        if ($groonga_response->is_success) {
-            return $groonga_response->content;
-        } else {
-            croak $groonga_response->content;
-        }
-    } else {
-        croak $http_response->status_line;
-    }
+    my $status =
+        Groonga::Commands::Status->new(client => $groonga_http_client);
+    return $status->execute;
 }
 
 1;
