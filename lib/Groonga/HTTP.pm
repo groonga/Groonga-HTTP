@@ -34,8 +34,10 @@ sub status {
         croak $http_request_error;
     }
 
+    if ($command_response->is_success) {
+        return $command_response->content;
     } else {
-        return $http_response->code;
+        croak $command_response->content;
     }
 }
 
