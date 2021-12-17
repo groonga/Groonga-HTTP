@@ -34,15 +34,12 @@ sub status {
     eval {
         $command_response = _send_to_query($query);
     };
-    if (my $http_request_error = $@) {
-        croak $http_request_error;
+    if (my $request_error = $@) {
+        croak $request_error;
     }
+    return $command_response;
+}
 
-    if ($command_response->is_success) {
-        return $command_response->content;
-    } else {
-        croak $command_response->content;
-    }
 }
 
 sub _make_query {
@@ -62,7 +59,15 @@ sub _send_to_query {
 
     my $http_response = $user_agent->get($query);
     if ($http_response->is_success) {
-        return Groonga::ResultSet->new(decoded_content => $http_response->decoded_content);
+        my $groonga_response =
+            Groonga::ResultSet->new(
+                decoded_content => $http_response->decoded_content
+            );
+        if ($groonga_response->is_success) {
+            return $groonga_response->content;
+        } else {
+            croak $groonga_response->content;
+        }
     } else {
         croak $http_response->status_line;
     }
