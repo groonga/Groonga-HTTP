@@ -43,10 +43,10 @@ sub _send_to_query {
     my $user_agent = LWP::UserAgent->new;
 
     my $http_response = $user_agent->get($query);
-    if ($http_reposnse->is_success) {
-        return Groonga::ResultSet->new($http_reposnse->decoded_content);
+    if ($http_response->is_success) {
+        return Groonga::ResultSet->new(decoded_content => $http_response->decoded_content);
     } else {
-        croak $http_reposnse->status_line;
+        croak $http_response->status_line;
     }
 }
 
