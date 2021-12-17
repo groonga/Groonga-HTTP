@@ -4,6 +4,8 @@ use LWP::UserAgent;
 use JSON 'decode_json';
 use Carp 'croak';
 
+use Groonga::ResultSet;
+
 use strict;
 use warnings;
 
