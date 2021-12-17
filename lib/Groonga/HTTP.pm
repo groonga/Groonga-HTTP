@@ -26,6 +26,14 @@ sub new {
 
 sub status {
     my $query = _make_query(command => 'status');
+    my $command_response = undef;
+    eval {
+        $command_response = _send_to_query($query);
+    };
+    if (my $http_request_error = $@) {
+        croak $http_request_error;
+    }
+
     } else {
         return $http_response->code;
     }
