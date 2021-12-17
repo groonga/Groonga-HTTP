@@ -2,6 +2,9 @@ package Groonga::ResultSet;
 
 use JSON;
 
+use strict;
+use warnings;
+
 my $command_response_code = undef;
 my @command_response_raw = ();
 my $command_response = {};
