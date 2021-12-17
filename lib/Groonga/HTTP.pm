@@ -25,8 +25,12 @@ sub new {
 }
 
 sub status {
-    my $query = _make_query(command => 'status');
+    my $query = _make_query(
+        command => 'status',
+        command_args => {}
+    );
     my $command_response = undef;
+
     eval {
         $command_response = _send_to_query($query);
     };
@@ -43,9 +47,12 @@ sub status {
 
 sub _make_query {
     my %args = @_;
-    my $command = $args{'command'};
+    my $command_name = $args{'command'};
+    my $command_args = $args{'command_args'};
+    my $command = '';
 
     # TODO validation
+    if     ($command_name eq 'status') { $command = $command_name; }
     return "http://${host}:${port}/d/${command}";
 }
 
