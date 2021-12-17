@@ -1,15 +1,16 @@
 package Groonga::HTTP;
 
 use LWP::UserAgent;
-use Carp 'croak';
 
 use Groonga::ResultSet;
+use Groonga::HTTP::Client;
 
 use strict;
 use warnings;
 
 my $host = '127.0.0.1';
 my $port = 10041;
+my $groonga_http_client = undef;
 
 sub new {
     my ($class, %args) = @_;
@@ -21,6 +22,9 @@ sub new {
     if ($self->{port}) {
         $port = $self->{port};
     }
+
+    $groonga_http_client =
+        Groonga::HTTP::Client->new(host => $host, port => $port);
     return bless $self, $class;
 }
 
