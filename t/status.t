@@ -13,6 +13,7 @@ is(
   $status,
   {
     alloc_count => E(),
+    starttime => E(),
     start_time => E(),
     uptime => E(),
     version => E(),
