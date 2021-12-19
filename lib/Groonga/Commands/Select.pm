@@ -41,6 +41,10 @@ sub _parse_arguments {
         $parsed_arguments .= '&';
         $parsed_arguments .= "match_columns=" . $args->{'columns'};
     }
+    if (exists($args->{'sort_keys'})) {
+        $parsed_arguments .= '&';
+        $parsed_arguments .= "sort_keys=" . $args->{'sort_keys'};
+    }
 
     return $parsed_arguments;
 }

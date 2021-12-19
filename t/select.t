@@ -158,5 +158,36 @@ my $groonga = Groonga::HTTP->new(
   );
 }
 
+# Specify sort_keys
+{
+  my @result = $groonga->select(
+     table => 'Site',
+     columns => 'title',
+     query => 'six OR seven',
+     output_columns => '_id, title',
+     sort_keys => '-_id'
+  );
+
+  is(
+    $result[0],
+    2,
+    "select returns correct number of hit"
+  );
+
+  is(
+    $result[1],
+    [
+      [
+        7,
+        'test test test record seven.'
+      ],
+      [
+        6,
+        'test test test test record six.'
+      ],
+    ],
+    "select returns a correct record"
+  );
+}
 
 done_testing();
