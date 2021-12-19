@@ -5,9 +5,12 @@ use LWP::UserAgent;
 use Groonga::ResultSet;
 use Groonga::HTTP::Client;
 use Groonga::Commands::Status;
+use Groonga::Commands::Select;
 
 use strict;
 use warnings;
+
+use Data::Dumper;
 
 my $host = '127.0.0.1';
 my $port = 10041;
@@ -33,6 +36,16 @@ sub status {
     my $status =
         Groonga::Commands::Status->new(client => $groonga_http_client);
     return $status->execute;
+}
+
+sub select {
+    my ($client, %args) = @_;
+    my $select =
+        Groonga::Commands::Select->new(
+            client => $groonga_http_client,
+            %args
+        );
+    return $select->execute;
 }
 
 1;

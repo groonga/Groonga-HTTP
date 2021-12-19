@@ -9,7 +9,7 @@ use Groonga::ResultSet;
 use strict;
 use warnings;
 
-my $query = "";
+my $prefix = "";
 
 sub new {
     my ($class, %args) = @_;
@@ -18,15 +18,15 @@ sub new {
     my $host = $self->{host};
     my $port = $self->{port};
 
-    $query = "http://${host}:${port}/d/";
+    $prefix = "http://${host}:${port}/d/";
     return bless $self, $class;
 }
 
 sub send {
     my $command = $_[1];
-    $query = $query . $command;
+    print Dumper($command);
+    my $query = $prefix . $command;
     my $user_agent = LWP::UserAgent->new;
-
     my $http_response = $user_agent->get($query);
     if ($http_response->is_success) {
         my $groonga_response =
