@@ -10,8 +10,6 @@ use Groonga::Commands::Select;
 use strict;
 use warnings;
 
-use Data::Dumper;
-
 my $host = '127.0.0.1';
 my $port = 10041;
 my $groonga_http_client = undef;

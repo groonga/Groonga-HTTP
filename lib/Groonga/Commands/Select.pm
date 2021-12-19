@@ -3,8 +3,6 @@ package Groonga::Commands::Select;
 use strict;
 use warnings;
 
-use Data::Dumper;
-
 my $groonga_http_client = undef;
 my $command_args = "";
 my $n_hits = undef;
@@ -22,7 +20,6 @@ sub new {
 
 sub _parse_arguments {
     my $args = shift;
-    print Dumper($args->{'output_columns'});
 
     my $parsed_arguments = "";
 

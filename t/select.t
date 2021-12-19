@@ -2,7 +2,6 @@ use Test2::V0;
 
 BEGIN { push @INC, './lib' }
 use Groonga::HTTP;
-use Data::Dumper;
 
 my $groonga = Groonga::HTTP->new(
   host => 'localhost',
