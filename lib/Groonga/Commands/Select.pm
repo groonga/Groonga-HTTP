@@ -45,6 +45,10 @@ sub _parse_arguments {
         $parsed_arguments .= '&';
         $parsed_arguments .= "sort_keys=" . $args->{'sort_keys'};
     }
+    if (exists($args->{'limit'})) {
+        $parsed_arguments .= '&';
+        $parsed_arguments .= "limit=" . $args->{'limit'};
+    }
 
     return $parsed_arguments;
 }
@@ -56,7 +60,9 @@ sub _parse_result {
 
     my $i = 0;
     for ($i = 2; $i < ($n_hits+2); $i++) {
-        push(@records, $result->[0][$i]);
+        if (exists($result->[0][$i])) {
+            push(@records, $result->[0][$i]);
+        }
     }
     return ($n_hits, \@records);
 }
