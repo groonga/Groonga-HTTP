@@ -32,12 +32,14 @@ cpanm \
     JSON
 
 # Setting Groonga's database for executing tests
+
+cd Groonga-HTTP
 rm -rf db
 mkdir db
+
 cat t/fixture/*.grn > dump.grn
 groonga --protocol http -s -n db/db < dump.grn &
 
 # Run test
-cd Groonga-HTTP
 prove -v
 rm -rf db
