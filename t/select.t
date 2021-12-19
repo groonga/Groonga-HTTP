@@ -75,7 +75,6 @@ my $groonga = Groonga::HTTP->new(
 }
 
 # Select specify output
-
 {
   my @result = $groonga->select(
      table => 'Site',
@@ -88,7 +87,6 @@ my $groonga = Groonga::HTTP->new(
     "select returns correct number of hit"
   );
 
-print Dumper($result[1]);
   is(
     $result[1],
     [
