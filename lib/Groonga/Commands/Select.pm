@@ -49,6 +49,10 @@ sub _parse_arguments {
         $parsed_arguments .= '&';
         $parsed_arguments .= "limit=" . $args->{'limit'};
     }
+    if (exists($args->{'synonym'})) {
+        $parsed_arguments .= '&';
+        $parsed_arguments .= "query_expander=" . $args->{'synonym'};
+    }
 
     return $parsed_arguments;
 }

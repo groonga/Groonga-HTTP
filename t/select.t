@@ -219,4 +219,41 @@ my $groonga = Groonga::HTTP->new(
   );
 }
 
+# Synonym search
+{
+  my @result = $groonga->select(
+     table => 'Entries',
+     columns => 'content',
+     query => 'mroonga',
+     synonym => 'Thesaurus.synonym',
+  );
+
+  is(
+    $result[0],
+    2,
+    "select returns correct number of hit"
+  );
+
+  is(
+    $result[1],
+    [
+      [
+        3,
+        "Mroonga",
+        "I also started to use Mroonga. It's also very fast! Really fast!",
+        15,
+        "Groonga"
+      ],
+      [
+        5,
+        "Good-bye Tritonn",
+        "I also migrated all Tritonn system!",
+        3,
+        "Senna"
+      ]
+    ],
+    "select returns a correct record"
+  );
+}
+
 done_testing();
