@@ -131,4 +131,32 @@ my $groonga = Groonga::HTTP->new(
   );
 }
 
+# Full text search
+{
+  my @result = $groonga->select(
+     table => 'Site',
+     columns => 'title',
+     query => 'this',
+     output_columns => '_id, title'
+  );
+
+  is(
+    $result[0],
+    1,
+    "select returns correct number of hit"
+  );
+
+  is(
+    $result[1],
+    [
+      [
+        1,
+        'This is test record 1!'
+      ]
+    ],
+    "select returns a correct record"
+  );
+}
+
+
 done_testing();

@@ -33,6 +33,14 @@ sub _parse_arguments {
         $parsed_arguments .= '&';
         $parsed_arguments .= "output_columns=" . $args->{'output_columns'};
     }
+    if (exists($args->{'query'})) {
+        $parsed_arguments .= '&';
+        $parsed_arguments .= "query=" . $args->{'query'};
+    }
+    if (exists($args->{'columns'})) {
+        $parsed_arguments .= '&';
+        $parsed_arguments .= "match_columns=" . $args->{'columns'};
+    }
 
     return $parsed_arguments;
 }
