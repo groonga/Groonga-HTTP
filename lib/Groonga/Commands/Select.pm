@@ -7,6 +7,7 @@ my $groonga_http_client = undef;
 my $command_args = "";
 my $n_hits = undef;
 my @records;
+my $use_drilldown = 0;
 
 sub new {
     my ($class, %args) = @_;
@@ -50,19 +51,31 @@ sub _parse_arguments {
         $parsed_arguments .= '&';
         $parsed_arguments .= "query_expander=" . $args->{'synonym'};
     }
+    if (exists($args->{'drilldown'})) {
+        $use_drilldown = 1;
+        $parsed_arguments .= '&';
+        $parsed_arguments .= "drilldown=" . $args->{'drilldown'};
+    }
 
     return $parsed_arguments;
 }
 
 sub _parse_result {
     my $result = shift;
-    my $n_hits = $result->[0][0][0];
+    my $i = 0;
+
+    if ($use_drilldown) {
+        $i += 1;
+        $use_drilldown = 0;
+    }
+
+    my $n_hits = $result->[$i][0][0];
     my @records;
 
-    my $i = 0;
-    for ($i = 2; $i < ($n_hits+2); $i++) {
-        if (exists($result->[0][$i])) {
-            push(@records, $result->[0][$i]);
+    my $j = 0;
+    for ($j = 2; $j < ($n_hits+2); $j++) {
+        if (exists($result->[$i][$j])) {
+            push(@records, $result->[$i][$j]);
         }
     }
     return ($n_hits, \@records);

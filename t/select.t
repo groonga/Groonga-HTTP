@@ -1,6 +1,6 @@
 use Test2::V0;
 
-BEGIN { push @INC, './lib' }
+BEGIN { push @INC, '/Groonga-HTTP/lib' }
 use Groonga::HTTP;
 
 my $groonga = Groonga::HTTP->new(
@@ -249,6 +249,40 @@ my $groonga = Groonga::HTTP->new(
         "I also migrated all Tritonn system!",
         3,
         "Senna"
+      ]
+    ],
+    "select returns a correct record"
+  );
+}
+
+# Drilldown
+{
+  my @result = $groonga->select(
+     table => 'Entries',
+     output_columns => '_key,tag',
+     drilldown => 'tag'
+  );
+
+  is(
+    $result[0],
+    3,
+    "select returns correct number of hit"
+  );
+
+  is(
+    $result[1],
+    [
+      [
+        "Hello",
+        1
+      ],
+      [
+        "Groonga",
+        2
+      ],
+      [
+        "Senna",
+        2
       ]
     ],
     "select returns a correct record"
