@@ -1,0 +1,32 @@
+table_create Entries TABLE_HASH_KEY ShortText
+column_create Entries content COLUMN_SCALAR Text
+column_create Entries n_likes COLUMN_SCALAR UInt32
+column_create Entries tag COLUMN_SCALAR ShortText
+
+table_create Terms TABLE_PAT_KEY ShortText --default_tokenizer TokenBigram --normalizer NormalizerAuto
+column_create Terms entries_key_index COLUMN_INDEX|WITH_POSITION Entries _key
+column_create Terms entries_content_index COLUMN_INDEX|WITH_POSITION Entries content
+
+load --table Entries
+[
+{"_key":    "The first post!",
+ "content": "Welcome! This is my first post!",
+ "n_likes": 5,
+ "tag": "Hello"},
+{"_key":    "Groonga",
+ "content": "I started to use Groonga. It's very fast!",
+ "n_likes": 10,
+ "tag": "Groonga"},
+{"_key":    "Mroonga",
+ "content": "I also started to use Mroonga. It's also very fast! Really fast!",
+ "n_likes": 15,
+ "tag": "Groonga"},
+{"_key":    "Good-bye Senna",
+ "content": "I migrated all Senna system!",
+ "n_likes": 3,
+ "tag": "Senna"},
+{"_key":    "Good-bye Tritonn",
+ "content": "I also migrated all Tritonn system!",
+ "n_likes": 3,
+ "tag": "Senna"}
+]

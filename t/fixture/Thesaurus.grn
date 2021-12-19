@@ -1,0 +1,8 @@
+table_create Thesaurus TABLE_PAT_KEY ShortText --normalizer NormalizerAuto
+column_create Thesaurus synonym COLUMN_VECTOR ShortText
+
+load --table Thesaurus
+[
+{"_key": "mroonga", "synonym": ["mroonga", "tritonn", "groonga mysql"]},
+{"_key": "groonga", "synonym": ["groonga", "senna"]}
+]
