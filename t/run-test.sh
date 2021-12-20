@@ -41,4 +41,4 @@ groonga --protocol http -s db/db &
 # Run test
 cd Groonga-HTTP
 prove -v
-rm -rf db
+rm -rf /db
