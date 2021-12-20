@@ -3,9 +3,9 @@ column_create Entries content COLUMN_SCALAR Text
 column_create Entries n_likes COLUMN_SCALAR UInt32
 column_create Entries tag COLUMN_SCALAR ShortText
 
-table_create Terms TABLE_PAT_KEY ShortText --default_tokenizer TokenBigram --normalizer NormalizerAuto
-column_create Terms entries_key_index COLUMN_INDEX|WITH_POSITION Entries _key
-column_create Terms entries_content_index COLUMN_INDEX|WITH_POSITION Entries content
+table_create EntriesTerms TABLE_PAT_KEY ShortText --default_tokenizer TokenBigram --normalizer NormalizerAuto
+column_create EntriesTerms entries_key_index COLUMN_INDEX|WITH_POSITION Entries _key
+column_create EntriesTerms entries_content_index COLUMN_INDEX|WITH_POSITION Entries content
 
 load --table Entries
 [

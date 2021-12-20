@@ -15,14 +15,14 @@ load --table Site
 ]
 
 table_create \
-  --name Terms \
+  --name SiteTerms \
   --flags TABLE_PAT_KEY \
   --key_type ShortText \
   --default_tokenizer TokenBigram \
   --normalizer NormalizerAuto
 
 column_create \
-  --table Terms \
+  --table SiteTerms \
   --name blog_title \
   --flags COLUMN_INDEX|WITH_POSITION \
   --type Site \
