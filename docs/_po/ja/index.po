@@ -1,0 +1,86 @@
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Language: ja\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=; plural=;\n"
+
+msgid ""
+"---\n"
+"title: none\n"
+"---"
+msgstr ""
+
+msgid ""
+"<div class=\"jumbotron\">\n"
+"  <h1>Groonga-HTTP</h1>\n"
+"  <p>{{ site.description.en }}</p>\n"
+"  <p>The latest version\n"
+"     (<a href=\"news/#version-{{ site.version | replace:\".\", \"-\" }}\">{{ site.ve"
+"rsion }}</a>)\n"
+"     has been released at {{ site.release_date }}.\n"
+"  </p>\n"
+"  <p>\n"
+"    <a href=\"tutorial/\"\n"
+"       class=\"btn btn-primary btn-lg\"\n"
+"       role=\"button\">Try tutorial</a>\n"
+"    <a href=\"install/\"\n"
+"       class=\"btn btn-primary btn-lg\"\n"
+"       role=\"button\">Install</a>\n"
+"  </p>\n"
+"</div>"
+msgstr ""
+
+msgid "## About Groonga-HTTP {#about}"
+msgstr ""
+
+msgid "Groonga-HTTP is a Perl module for sending HTTP requests to Groonga."
+msgstr ""
+
+msgid ""
+"Groonga-HTTP provides user-friendly Web API instead of low-level Groonga Web A"
+"PI. The user-friendly Web API is implemented top of the low-level Groonga Web "
+"API."
+msgstr ""
+
+msgid "## Documentations {#documentations}"
+msgstr ""
+
+msgid "  * [News][news]: It lists release information."
+msgstr ""
+
+msgid "  * [Install][install]: It describes how to install Groonga-HTTP."
+msgstr ""
+
+msgid "  * [Tutorial][tutorial]: It describes how to use Groonga-HTTP step by step."
+msgstr ""
+
+msgid ""
+"  * [Reference][reference]: It describes details for each features such as cla"
+"sses and methods."
+msgstr ""
+
+msgid "## License {#license}"
+msgstr ""
+
+msgid ""
+"Groonga-HTTP is released under [the GNU Lesser General Public License version "
+"3][lgpl3.0-license]."
+msgstr ""
+
+msgid "[news]:news/"
+msgstr ""
+
+msgid "[install]:install/"
+msgstr ""
+
+msgid "[tutorial]:tutorial/"
+msgstr ""
+
+msgid "[reference]:reference/"
+msgstr ""
+
+msgid "[lgpl3.0-license]:https://opensource.org/licenses/LGPL-3.0"
+msgstr ""
