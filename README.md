@@ -11,9 +11,13 @@ Groonga-HTTP is a Perl module for sending HTTP requests to [Groonga](https://gro
 Groonga-HTTP provides user-friendly Web API instead of low-level Groonga Web API.
 The user-friendly Web API is implemented top of the low-level Groonga Web API.
 
-## Authors
+## Install
 
-  * Horimoto Yasuhiro \<horimoto@clear-code.com\>
+...
+
+## Usage
+
+...
 
 ## License
 
