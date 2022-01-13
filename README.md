@@ -21,6 +21,7 @@ The user-friendly Web API is implemented top of the low-level Groonga Web API.
 
 ## License
 
-GNU Lesser General Public License version 3.
-See COPYING and COPYING.LESSER for details.
+GNU Lesser General Public License version 3 or later.
 See [COPYING](COPYING) and [COPYING.LESSER](COPYING.LESSER) for details.
+
+Copyright 2020-2021 Horimoto Yasuhiro \<horimoto@clear-code.com\>
