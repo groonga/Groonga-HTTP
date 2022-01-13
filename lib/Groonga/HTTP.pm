@@ -62,3 +62,30 @@ sub select {
 }
 
 1;
+__END__
+
+=head1 NAME
+
+Groonga::HTTP - [One line description of module's purpose here]
+
+
+=head1 VERSION
+
+This document describes Groonga::HTTP version 0.0.1
+
+
+=head1 SYNOPSIS
+
+    use Groonga::HTTP;
+
+=for author to fill in:
+    Brief code example(s) here showing commonest usage(s).
+    This section will be as far as many users bother reading
+    so make it as educational and exeplary as possible.
+  
+  
+=head1 DESCRIPTION
+
+=for author to fill in:
+    Write a full description of the module and its features here.
+    Use subsections (=head2, =head3) as appropriate.
