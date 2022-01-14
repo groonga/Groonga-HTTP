@@ -25,6 +25,8 @@ use Groonga::Commands::Select;
 use strict;
 use warnings;
 
+our $VERSION = "0.01";
+
 my $host = '127.0.0.1';
 my $port = 10041;
 my $groonga_http_client = undef;
@@ -64,28 +66,29 @@ sub select {
 1;
 __END__
 
+=encoding utf-8
+
 =head1 NAME
 
-Groonga::HTTP - [One line description of module's purpose here]
-
-
-=head1 VERSION
-
-This document describes Groonga::HTTP version 0.0.1
-
+Groonga::HTTP - It's new $module
 
 =head1 SYNOPSIS
 
     use Groonga::HTTP;
 
-=for author to fill in:
-    Brief code example(s) here showing commonest usage(s).
-    This section will be as far as many users bother reading
-    so make it as educational and exeplary as possible.
-  
-  
 =head1 DESCRIPTION
 
-=for author to fill in:
-    Write a full description of the module and its features here.
-    Use subsections (=head2, =head3) as appropriate.
+Groonga::HTTP is ...
+
+=head1 LICENSE
+
+Copyright (C) Horimoto Yasuhiro.
+
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
+
+=head1 AUTHOR
+
+Horimoto Yasuhiro E<lt>horimoto@clear-code.comE<gt>
+
+=cut

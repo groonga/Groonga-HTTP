@@ -1,27 +1,22 @@
-# README
+# NAME
 
-## Name
+Groonga::HTTP - It's new $module
 
-Groonga-HTTP
+# SYNOPSIS
 
-## Description
+    use Groonga::HTTP;
 
-Groonga-HTTP is a Perl module for sending HTTP requests to [Groonga](https://groonga.org/).
+# DESCRIPTION
 
-Groonga-HTTP provides user-friendly Web API instead of low-level Groonga Web API.
-The user-friendly Web API is implemented top of the low-level Groonga Web API.
+Groonga::HTTP is ...
 
-## Install
+# LICENSE
 
-...
+Copyright (C) Horimoto Yasuhiro.
 
-## Usage
+This library is free software; you can redistribute it and/or modify
+it under the same terms as Perl itself.
 
-...
+# AUTHOR
 
-## License
-
-GNU Lesser General Public License version 3 or later.
-See [COPYING](COPYING) and [COPYING.LESSER](COPYING.LESSER) for details.
-
-Copyright 2020-2021 Horimoto Yasuhiro \<horimoto@clear-code.com\>
+Horimoto Yasuhiro <horimoto@clear-code.com>

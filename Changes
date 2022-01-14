@@ -1,5 +1,6 @@
-Revision history for Groonga-HTTP
+Revision history for Perl extension Groonga-HTTP
 
-0.0.1  Thu Jan 13 17:01:42 2022
-       Initial release.
+{{$NEXT}}
+
+    - original version
 
