@@ -31,6 +31,7 @@ esac
 
 ${DNF} install -y \
   gcc \
+  git \
   perl \
   perl-App-cpanminus
 
