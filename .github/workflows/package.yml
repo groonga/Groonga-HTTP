@@ -1,0 +1,44 @@
+name: Package
+on:
+  push:
+    branches:
+      - master
+    tags:
+      - '*'
+  pull_request:
+  schedule:
+    - cron: |
+        0 0 * * *
+jobs:
+  build:
+    name: Build
+    strategy:
+      fail-fast: false
+    runs-on: ubuntu-20.04
+    steps:
+        - uses: actions/checkout@v2
+          with:
+            submodules: recursive
+        - name: Install dependencies
+          run: |
+            sudo apt -y install software-properties-common
+            sudo add-apt-repository -y universe
+            sudo add-apt-repository -y ppa:groonga/ppa
+            sudo apt update
+            sudo apt -V install \
+              cpanminus \
+              groonga \
+              groonga-token-filter-stem \
+              groonga-tokenizer-mecab \
+              perl
+            sudo cpanm -n --with-recommends Minilla
+        - name: Start Groonga HTTP server for tests
+          run: |
+            rm -rf db
+            mkdir db
+            cat t/fixture/*.grn > dump.grn
+            groonga -n db/db < dump.grn
+        - name: Test
+          run: |
+            groonga --protocol http -s db/db &
+            minil dist
