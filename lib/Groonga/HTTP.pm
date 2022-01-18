@@ -25,6 +25,8 @@ use Groonga::Commands::Select;
 use strict;
 use warnings;
 
+our $VERSION = "0.01";
+
 my $host = '127.0.0.1';
 my $port = 10041;
 my $groonga_http_client = undef;
@@ -62,3 +64,46 @@ sub select {
 }
 
 1;
+__END__
+
+=encoding utf-8
+
+=head1 NAME
+
+Groonga::HTTP - Perl module for sending HTTP requests to Groonga.
+
+=head1 INSTALL
+
+    $ cpanm Groonga::HTTP
+
+=head1 SYNOPSIS
+
+    use Groonga::HTTP;
+
+    my $groonga = Groonga::HTTP->new;
+
+    # Search for the "Site" table of Groonga.
+    my @result = $groonga->select(
+       table => 'Site'
+    );
+    print @result;
+
+=head1 DESCRIPTION
+
+Groonga-HTTP is a Perl module for sending HTTP requests to Groonga.
+
+Groonga-HTTP provides user-friendly Web API instead of low-level Groonga Web API.
+The user-friendly Web API is implemented top of the low-level Groonga Web API.
+
+=head1 LICENSE
+
+Copyright 2020-2021 Horimoto Yasuhiro.
+
+GNU Lesser General Public License version 3 or later.
+See L<COPYING|https://github.com/groonga/Groonga-HTTP/blob/main/COPYING> and L<COPYING.LESSER|https://github.com/groonga/Groonga-HTTP/blob/main/COPYING.LESSER> for details.
+
+=head1 AUTHOR
+
+Horimoto Yasuhiro E<lt>horimoto@clear-code.comE<gt>
+
+=cut
