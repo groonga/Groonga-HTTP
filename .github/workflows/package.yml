@@ -38,7 +38,7 @@ jobs:
             mkdir db
             cat t/fixture/*.grn > dump.grn
             groonga -n db/db < dump.grn
-        - name: Test
+        - name: Build package
           run: |
             groonga --protocol http -s db/db &
             minil dist
