@@ -42,10 +42,9 @@ jobs:
           run: |
             groonga --protocol http -s db/db &
             minil dist
-        - name: Upload Artifact
-          run: |
             echo "module_version=`cat docs/_config.yml | grep version | awk '{print $2}'`" >> $GITHUB_ENV
-          uses: actions/upload-artifact@v2
+        # Artifact
+        - uses: actions/upload-artifact@v2
           with:
             name: Groonga-HTTP-${{ env.module_version }}
             path: Groonga-HTTP-${{ env.module_version }}.tar.gz
