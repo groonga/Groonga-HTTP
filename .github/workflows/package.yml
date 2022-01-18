@@ -54,4 +54,18 @@ jobs:
           with:
             files: |
               Groonga-HTTP-${{ env.module_version }}.tar.gz
-
+  install:
+    name: Install
+    needs: build
+    runs-on: ubuntu-20.04
+    steps:
+        - uses: actions/checkout@v2
+          with:
+            submodules: recursive
+        - name: Install released package
+          run: |
+            docker run \
+              --rm \
+              --volume ${PWD}:/Groonga-HTTP:ro \
+              ${{ matrix.test-docker-image }} \
+              /Groonga-HTTP/t/install-test.sh
