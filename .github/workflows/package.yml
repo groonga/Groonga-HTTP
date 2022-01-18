@@ -57,6 +57,14 @@ jobs:
   install:
     name: Install
     needs: build
+    strategy:
+      fail-fast: false
+      matrix:
+        label:
+          - AlmaLinux 8
+        include:
+          - label: AlmaLinux 8
+            test-docker-image: almalinux:8
     runs-on: ubuntu-20.04
     steps:
         - uses: actions/checkout@v2
