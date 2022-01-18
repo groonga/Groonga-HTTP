@@ -2,5 +2,7 @@ Revision history for Perl extension Groonga-HTTP
 
 {{$NEXT}}
 
-    - original version
+    - Added support for "status" command.
+    - Added support for "select" command.
+      However, we support only a part of the arguments of "select".
 
