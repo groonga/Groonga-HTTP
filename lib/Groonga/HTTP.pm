@@ -70,22 +70,37 @@ __END__
 
 =head1 NAME
 
-Groonga::HTTP - It's new $module
+Groonga::HTTP - Perl module for sending HTTP requests to Groonga.
+
+=head1 INSTALL
+
+    $ cpanm Groonga::HTTP
 
 =head1 SYNOPSIS
 
     use Groonga::HTTP;
 
+    my $groonga = Groonga::HTTP->new;
+
+    # Search for the "Site" table of Groonga.
+    my @result = $groonga->select(
+       table => 'Site'
+    );
+    print @result;
+
 =head1 DESCRIPTION
 
-Groonga::HTTP is ...
+Groonga-HTTP is a Perl module for sending HTTP requests to Groonga.
+
+Groonga-HTTP provides user-friendly Web API instead of low-level Groonga Web API.
+The user-friendly Web API is implemented top of the low-level Groonga Web API.
 
 =head1 LICENSE
 
-Copyright (C) Horimoto Yasuhiro.
+Copyright 2020-2021 Horimoto Yasuhiro.
 
-This library is free software; you can redistribute it and/or modify
-it under the same terms as Perl itself.
+GNU Lesser General Public License version 3 or later.
+See L<COPYING|https://github.com/groonga/Groonga-HTTP/blob/main/COPYING> and L<COPYING.LESSER|https://github.com/groonga/Groonga-HTTP/blob/main/COPYING.LESSER> for details.
 
 =head1 AUTHOR
 
