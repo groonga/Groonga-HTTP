@@ -48,3 +48,12 @@ jobs:
           with:
             name: Groonga-HTTP-${{ env.module_version }}
             path: Groonga-HTTP-${{ env.module_version }}.tar.gz
+        # Release
+        - name: Upload to release
+          uses: softprops/action-gh-release@v1
+          if: |
+            startsWith(github.ref, 'refs/tags/')
+          with:
+            files: |
+              Groonga-HTTP-${{ env.module_version }}.tar.gz
+
