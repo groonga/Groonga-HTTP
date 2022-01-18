@@ -1,12 +1,12 @@
 {
-   "abstract" : "It's new $module",
+   "abstract" : "Perl module for sending HTTP requests to Groonga.",
    "author" : [
       "Horimoto Yasuhiro <horimoto@clear-code.com>"
    ],
    "dynamic_config" : 0,
    "generated_by" : "Minilla/v3.1.14, CPAN::Meta::Converter version 2.150010",
    "license" : [
-      "perl_5"
+      "lgpl_3_0"
    ],
    "meta-spec" : {
       "url" : "http://search.cpan.org/perldoc?CPAN::Meta::Spec",
@@ -28,7 +28,8 @@
    "prereqs" : {
       "configure" : {
          "requires" : {
-            "Module::Build::Tiny" : "0.035"
+            "Module::Build::Tiny" : "0.035",
+            "perl" : "5.008_001"
          }
       },
       "develop" : {
@@ -42,16 +43,28 @@
       },
       "runtime" : {
          "requires" : {
-            "perl" : "5.008001"
+            "JSON" : "0",
+            "LWP::UserAgent" : "0"
          }
       },
       "test" : {
          "requires" : {
-            "Test::More" : "0.98"
+            "Test2::V0" : "0"
          }
       }
    },
    "release_status" : "unstable",
+   "resources" : {
+      "bugtracker" : {
+         "web" : "https://github.com/groonga/Groonga-HTTP/issues"
+      },
+      "homepage" : "https://github.com/groonga/Groonga-HTTP",
+      "repository" : {
+         "type" : "git",
+         "url" : "git://github.com/groonga/Groonga-HTTP.git",
+         "web" : "https://github.com/groonga/Groonga-HTTP"
+      }
+   },
    "version" : "0.01",
    "x_serialization_backend" : "JSON::PP version 2.97001",
    "x_static_install" : 1
