@@ -29,6 +29,7 @@ my @select_arguments = (
     'table',
     'output_columns',
     'query',
+    'filter',
     'columns',
     'sort_keys',
     'limit',
@@ -78,6 +79,10 @@ sub _parse_arguments {
     if (exists($args->{'query'})) {
         $parsed_arguments .= '&';
         $parsed_arguments .= "query=" . $args->{'query'};
+    }
+    if (exists($args->{'filter'})) {
+        $parsed_arguments .= '&';
+        $parsed_arguments .= "filter=" . $args->{'filter'};
     }
     if (exists($args->{'columns'})) {
         $parsed_arguments .= '&';
