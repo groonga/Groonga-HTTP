@@ -37,7 +37,7 @@ Groonga-HTTP provides user-friendly Web API instead of low-level Groonga Web API
 
 ## License {#license}
 
-Groonga-HTTP is released under [the GNU Lesser General Public License version 3][lgpl3.0-license].
+Groonga-HTTP is released under [the GNU Lesser General Public License version 3 or later][lgpl3.0-license].
 
 [news]:news/
 

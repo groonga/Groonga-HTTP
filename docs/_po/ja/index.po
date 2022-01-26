@@ -67,7 +67,7 @@ msgstr ""
 
 msgid ""
 "Groonga-HTTP is released under [the GNU Lesser General Public License version "
-"3][lgpl3.0-license]."
+"3 or later][lgpl3.0-license]."
 msgstr ""
 
 msgid "[news]:news/"
