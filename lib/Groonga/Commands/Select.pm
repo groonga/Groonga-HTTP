@@ -34,7 +34,8 @@ my @select_arguments = (
     'sort_keys',
     'limit',
     'synonym',
-    'drilldown'
+    'drilldown',
+    'dynamic_columns'
 );
 
 sub new {
@@ -104,6 +105,34 @@ sub _parse_arguments {
         $use_drilldown = 1;
         $parsed_arguments .= '&';
         $parsed_arguments .= "drilldown=" . $args->{'drilldown'};
+    }
+    if (exists($args->{'dynamic_columns'})) {
+        if (exists($args->{'dynamic_columns'}->{'name'})
+            && exists($args->{'dynamic_columns'}->{'stage'})
+            && exists($args->{'dynamic_columns'}->{'type'})
+            && exists($args->{'dynamic_columns'}->{'value'})
+           ) {
+            ;
+        } else {
+            croak "Missing required argument";
+        }
+        my $name = $args->{'dynamic_columns'}->{'name'};
+
+        $parsed_arguments .= '&';
+        $parsed_arguments .=
+            "columns[" . $name . "].stage=". $args->{'dynamic_columns'}->{'stage'};
+        $parsed_arguments .= '&';
+        $parsed_arguments .=
+            "columns[" . $name . "].type=". $args->{'dynamic_columns'}->{'type'};
+        $parsed_arguments .= '&';
+        $parsed_arguments .=
+            "columns[" . $name . "].value=". $args->{'dynamic_columns'}->{'value'};
+
+        if (exists($args->{'dynamic_columns'}->{'flags'})) {
+            $parsed_arguments .= '&';
+            $parsed_arguments .=
+                "columns[" . $name . "].flags=". $args->{'dynamic_columns'}->{'flags'};
+        }
     }
 
     return $parsed_arguments;

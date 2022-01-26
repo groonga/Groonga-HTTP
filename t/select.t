@@ -304,4 +304,103 @@ my $groonga = Groonga::HTTP->new(
   );
 }
 
+# Use dynamic column: missing "name" argument
+{
+  like dies {
+    my @result = $groonga->select(
+       table => 'Entries',
+       dynamic_columns => { stage => 'initial',
+                            flags => 'COLUMN_SCALAR',
+                            type => 'Bool',
+                            value => 'n_likes >= 10'
+                          },
+       output_columns => '_key,is_popular,n_likes'
+    );
+  }, qr/Missing required argument/, "Occures exception. Because missing required argument \"name\"";
+}
+
+# Use dynamic column: missing "stage" argument
+{
+  like dies {
+    my @result = $groonga->select(
+       table => 'Entries',
+       dynamic_columns => { name => 'is_popular',
+                            flags => 'COLUMN_SCALAR',
+                            type => 'Bool',
+                            value => 'n_likes >= 10'
+                          },
+       output_columns => '_key,is_popular,n_likes'
+    );
+  }, qr/Missing required argument/, "Occures exception. Because missing required argument \"stage\"";
+}
+
+# Use dynamic column: missing "type" argument
+{
+  like dies {
+    my @result = $groonga->select(
+       table => 'Entries',
+       dynamic_columns => { name => 'is_popular',
+                            stage => 'initial',
+                            flags => 'COLUMN_SCALAR',
+                            value => 'n_likes >= 10'
+                          },
+       output_columns => '_key,is_popular,n_likes'
+    );
+  }, qr/Missing required argument/, "Occures exception. Because missing required argument \"type\"";
+}
+
+# Use dynamic column: missing "value" argument
+{
+  like dies {
+    my @result = $groonga->select(
+       table => 'Entries',
+       dynamic_columns => { name => 'is_popular',
+                            stage => 'initial',
+                            flags => 'COLUMN_SCALAR',
+                            type => 'Bool',
+                          },
+       output_columns => '_key,is_popular,n_likes'
+    );
+  }, qr/Missing required argument/, "Occures exception. Because missing required argument \"value\"";
+}
+
+
+# Use dynamic column
+{
+  my @result = $groonga->select(
+     table => 'Entries',
+     dynamic_columns => { name => 'is_popular',
+                          stage => 'initial',
+                          flags => 'COLUMN_SCALAR',
+                          type => 'Bool',
+                          value => 'n_likes >= 10'
+                        },
+     filter => 'is_popular',
+     output_columns => '_key,is_popular,n_likes'
+  );
+
+  is(
+    $result[0],
+    2,
+    "select returns correct number of hit"
+  );
+
+  is(
+    $result[1],
+    [
+      [
+        "Groonga",
+        1,
+        10
+      ],
+      [
+        "Mroonga",
+        1,
+        15
+      ]
+    ],
+    "select returns a correct record"
+  );
+}
+
 done_testing();
