@@ -15,6 +15,8 @@
 
 package Groonga::Commands::Select;
 
+use Carp 'croak';
+
 use strict;
 use warnings;
 
@@ -23,6 +25,16 @@ my $command_args = "";
 my $n_hits = undef;
 my @records;
 my $use_drilldown = 0;
+my @select_arguments = (
+    'table',
+    'output_columns',
+    'query',
+    'columns',
+    'sort_keys',
+    'limit',
+    'synonym',
+    'drilldown'
+);
 
 sub new {
     my ($class, %args) = @_;
@@ -34,10 +46,27 @@ sub new {
     return bless $self, $class;
 }
 
+sub _is_valid_arguments {
+    my $args = shift;
+
+    while (my ($key, $value) = each %{$args}) {
+        if ($key eq 'client') {
+            next;
+        }
+        if (!(grep {$_ eq $key} @select_arguments)) {
+            croak "Invalid arguments: ${key}";
+        }
+    }
+
+    return 1;
+}
+
 sub _parse_arguments {
     my $args = shift;
 
     my $parsed_arguments = "";
+
+    _is_valid_arguments($args);
 
     if (exists($args->{'table'})) {
         $parsed_arguments .= "table=" . $args->{'table'};
