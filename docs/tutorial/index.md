@@ -7,6 +7,46 @@ title: Tutorial
 This document describes how to use Groonga-HTTP step by step.
 If you don't install Groonga-HTTP yet, [install][install] Groonga-HTTP before you read this document.
 
+## Drilldown {#drilldown}
+
+drilldown enables us to get the number of records which belongs to specific the value of column at once.
+
+Example:
+
+```perl
+use Groonga::HTTP;
+
+my $groonga = Groonga::HTTP->new;
+
+my @result = $groonga->select(
+   table => 'Entries',
+   output_columns => '_key,tag',
+   drilldown => 'tag'
+);
+
+#Result
+#[
+#  [
+#    "Hello",
+#    1
+#  ],
+#  [
+#    "Groonga",
+#    2
+#  ],
+#  [
+#    "Senna",
+#    2
+#  ]
+#]
+```
+
+The above example shows the following.
+
+  * The number of records that the value of ``tag`` is "Hello" is 1.
+  * The number of records that the value of ``tag`` is "Groonga" is 2.
+  * The number of records that the value of ``tag`` is "Senna" is 2.
+
 ## Sort of result {#sort-of-result}
 
 Groonga-HTTP can sort search results by a specific value of a column.
