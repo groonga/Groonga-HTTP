@@ -43,7 +43,6 @@
       },
       "runtime" : {
          "requires" : {
-            "JSON" : "0",
             "LWP::UserAgent" : "0"
          }
       },

@@ -1,4 +1,3 @@
-requires 'JSON';
 requires 'LWP::UserAgent';
 
 on configure => sub {

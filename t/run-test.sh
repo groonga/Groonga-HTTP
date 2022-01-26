@@ -43,8 +43,7 @@ ${DNF} install -y \
 # Install Perl Modules for executing tests
 cpanm \
     Test2::V0 \
-    LWP::UserAgent \
-    JSON
+    LWP::UserAgent
 
 # Setting Groonga's database for executing tests
 rm -rf db

@@ -15,7 +15,7 @@
 
 package Groonga::ResultSet;
 
-use JSON;
+use JSON::PP;
 
 use strict;
 use warnings;
@@ -29,9 +29,7 @@ sub new {
     my $self = {%args};
 
     if ($self->{decoded_content}) {
-        my $json = JSON->new;
-
-        @command_response_raw = $json->decode($self->{decoded_content});
+        @command_response_raw = decode_json($self->{decoded_content});
         $command_response_code = $command_response_raw[0][0][0];
         $command_response = $command_response_raw[0][1];
     }
