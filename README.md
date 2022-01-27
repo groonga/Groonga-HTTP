@@ -27,7 +27,7 @@ The user-friendly Web API is implemented top of the low-level Groonga Web API.
 
 # LICENSE
 
-Copyright 2020-2021 Horimoto Yasuhiro.
+Copyright 2021-2022 Horimoto Yasuhiro.
 
 GNU Lesser General Public License version 3 or later.
 See [COPYING](https://github.com/groonga/Groonga-HTTP/blob/main/COPYING) and [COPYING.LESSER](https://github.com/groonga/Groonga-HTTP/blob/main/COPYING.LESSER) for details.
