@@ -13,7 +13,7 @@ We must install [Groonga][groonga] before installing Groonga-HTTP.
 ## AlmaLinux {#almalinux}
 
 ```console
-% cpanm --notest git://github.com/groonga/Groonga-HTTP.git@0.01
+% cpanm --notest git://github.com/groonga/Groonga-HTTP.git@0.02
 ```
 
 [Groonga]:https://groonga.org/
