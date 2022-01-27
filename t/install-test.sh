@@ -36,6 +36,6 @@ ${DNF} install -y \
   perl-App-cpanminus
 
 # Install Perl Modules
-cpanm --notest git://github.com/groonga/Groonga-HTTP.git@0.02
+cpanm --notest git://github.com/groonga/Groonga-HTTP.git@0.03
 
 perl -e "use Groonga::HTTP"
