@@ -35,6 +35,7 @@ my @select_arguments = (
     'limit',
     'synonym',
     'drilldown',
+    'drilldown_filter',
     'dynamic_columns'
 );
 
@@ -105,6 +106,11 @@ sub _parse_arguments {
         $use_drilldown = 1;
         $parsed_arguments .= '&';
         $parsed_arguments .= "drilldown=" . $args->{'drilldown'};
+    }
+    if (exists($args->{'drilldown_filter'})) {
+        $use_drilldown = 1;
+        $parsed_arguments .= '&';
+        $parsed_arguments .= "drilldown_filter=" . $args->{'drilldown_filter'};
     }
     if (exists($args->{'dynamic_columns'})) {
         if (exists($args->{'dynamic_columns'}->{'name'})

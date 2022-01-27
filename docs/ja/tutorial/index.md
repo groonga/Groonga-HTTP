@@ -10,7 +10,7 @@ title: Tutorial
 
 drilldown はカラムの値ごとにレコード数を数える機能を提供します。値ごとに別々のクエリーになるのではなく、1回のクエリーですべての値に対してレコード数を数えます。
 
-Example:
+例:
 
 ```perl
 use Groonga::HTTP;
@@ -46,12 +46,46 @@ my @result = $groonga->select(
   * ``tag`` の値が "Groonga" であるレコードの数は2。
   * ``tag`` の値が "Senna" であるレコードの数は2。
 
+## ドリルダウン結果のフィルター {#drilldown-filter}
+
+``drilldown_filter`` を使ってドリルダウン結果をフィルターできます。
+``drilldown_filter`` にドリルダウン結果に対するフィルター条件を指定します。
+
+以下は1回しか出現していないタグを除く例です。
+
+例:
+
+```perl
+use Groonga::HTTP;
+
+my $groonga = Groonga::HTTP->new;
+
+my @result = $groonga->select(
+   table => 'Entries',
+   output_columns => '_key,tag',
+   drilldown => 'tag',
+   drilldown_filter => '_nsubrecs > 1'
+);
+
+#Result
+#[
+#  [
+#    "Groonga",
+#    2
+#  ],
+#  [
+#    "Senna",
+#    2
+#  ]
+#]
+```
+
 ## 結果のソート {#sort-of-result}
 
 Groonga-HTTPは、検索結果を特定のカラムの値でソートできます。デフォルトの順序は昇順です。
 "-"接頭辞によって、順序を逆にできます。
 
-Example:
+例:
 
 ```perl
 use Groonga::HTTP;

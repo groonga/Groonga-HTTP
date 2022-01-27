@@ -47,6 +47,40 @@ The above example shows the following.
   * The number of records that the value of ``tag`` is "Groonga" is 2.
   * The number of records that the value of ``tag`` is "Senna" is 2.
 
+## Filter of the result of drilldown {#drilldown-filter}
+
+We can filter the result of drilldown by ``drilldown_filter``.
+We specify the filter condition against the drilled down result into ``drilldown_filter``.
+
+Here is an example to suppress tags that are occurred only once.
+
+Example:
+
+```perl
+use Groonga::HTTP;
+
+my $groonga = Groonga::HTTP->new;
+
+my @result = $groonga->select(
+   table => 'Entries',
+   output_columns => '_key,tag',
+   drilldown => 'tag',
+   drilldown_filter => '_nsubrecs > 1'
+);
+
+#Result
+#[
+#  [
+#    "Groonga",
+#    2
+#  ],
+#  [
+#    "Senna",
+#    2
+#  ]
+#]
+```
+
 ## Sort of result {#sort-of-result}
 
 Groonga-HTTP can sort search results by a specific value of a column.

@@ -304,6 +304,38 @@ my $groonga = Groonga::HTTP->new(
   );
 }
 
+# Filter of the result of drilldown
+{
+  my @result = $groonga->select(
+     table => 'Entries',
+     output_columns => '_key,tag',
+     drilldown => 'tag',
+     drilldown_filter => '_nsubrecs > 1'
+  );
+
+  is(
+    $result[0],
+    2,
+    "select returns correct number of hit"
+  );
+
+  is(
+    $result[1],
+    [
+      [
+        "Groonga",
+        2
+      ],
+      [
+        "Senna",
+        2
+      ]
+    ],
+    "select returns a correct record"
+  );
+}
+
+
 # Use dynamic column: missing "name" argument
 {
   like dies {
