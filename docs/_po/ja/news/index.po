@@ -16,10 +16,12 @@ msgstr ""
 msgid "# News"
 msgstr ""
 
-msgid "## 0.03: 2022-01-27 {#version-0-02}"
 msgstr ""
 
 msgid "### Improvements"
+msgstr ""
+
+msgid "## 0.03: 2022-01-27 {#version-0-03}"
 msgstr ""
 
 msgid "  * Added support for \"filter\" as the argument of \"select\"."

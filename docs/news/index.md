@@ -4,7 +4,7 @@ title: News
 
 # News
 
-## 0.03: 2022-01-27 {#version-0-02}
+## 0.03: 2022-01-27 {#version-0-03}
 
 ### Improvements
 
