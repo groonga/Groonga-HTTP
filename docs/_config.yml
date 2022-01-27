@@ -1,9 +1,9 @@
 title: Groonga-HTTP
 markdown: kramdown
 highlighter: rouge
-copyright_year: 2021
 version: 0.02
 release_date: 2022-01-27
+copyright_year: 2022
 exclude:
   - "Rakefile"
   - "Gemfile"
