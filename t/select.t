@@ -335,6 +335,37 @@ my $groonga = Groonga::HTTP->new(
   );
 }
 
+# Specify output columns of the result of drilldown
+{
+  my @result = $groonga->select(
+     table => 'Entries',
+     output_columns => '_key,tag',
+     drilldown => 'tag',
+     drilldown_output_columns => '_key'
+  );
+
+  is(
+    $result[0],
+    3,
+    "select returns correct number of hit"
+  );
+
+  is(
+    $result[1],
+    [
+      [
+        "Hello"
+      ],
+      [
+        "Groonga"
+      ],
+      [
+        "Senna"
+      ]
+    ],
+    "select returns a correct record"
+  );
+}
 
 # Use dynamic column: missing "name" argument
 {
