@@ -4,10 +4,10 @@ title: none
 
 <div class="jumbotron">
   <h1>Groonga-HTTP</h1>
-  <p>{{ site.description.en }}</p>
-  <p>The latest version
+  <p>{{ site.description.ja }}</p>
+  <p>最新版
      (<a href="news/#version-{{ site.version | replace:".", "-" }}">{{ site.version }}</a>)
-     has been released at {{ site.release_date }}.
+     は{{ site.release_date }}にリリースされました。
   </p>
   <p>
     <a href="tutorial/"
@@ -19,25 +19,25 @@ title: none
   </p>
 </div>
 
-## About Groonga-HTTP {#about}
+## Groonga-HTTPについて {#about}
 
-Groonga-HTTP is a Perl module for sending HTTP requests to Groonga.
+Groonga-HTTPは、GroongaにHTTPリクエストを送信するPerlモジュールです。
 
-Groonga-HTTP provides user-friendly Web API instead of low-level Groonga Web API. The user-friendly Web API is implemented top of the low-level Groonga Web API.
+Groonga-HTTPは、低レベルのGroongaWeb APIの代わりに使いやすいWeb APIを提供します。
 
 ## Documentations {#documentations}
 
-  * [News][news]: It lists release information.
+  * [お知らせ][news]: リリース情報。
 
-  * [Install][install]: It describes how to install Groonga-HTTP.
+  * [インストール][install]: Groonga-HTTPのインストール方法
 
-  * [Tutorial][tutorial]: It describes how to use Groonga-HTTP step by step.
+  * [チュートリアル][tutorial]: Groonga-HTTPの使い方を1つずつ説明。
 
-  * [Reference][reference]: It describes details for each features such as classes and methods.
+  * [リファレンス][reference]: クラスやメソッドの使い方などの個別の機能の詳細な説明。
 
-## License {#license}
+## ライセンス {#license}
 
-Groonga-HTTP is released under [the GNU Lesser General Public License version 3 or later][lgpl3.0-license].
+Groonga-HTTPのライセンスは [the GNU Lesser General Public License version 3 or later][lgpl3.0-license] です。
 
 [news]:news/
 
