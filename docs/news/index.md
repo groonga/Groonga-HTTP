@@ -4,6 +4,12 @@ title: News
 
 # News
 
+## 0.04: 2022-01-27 {#version-0-04}
+
+### Improvements
+
+  * Added support for "drilldown_filter" as the argument of "select".
+
 ## 0.03: 2022-01-27 {#version-0-03}
 
 ### Improvements
