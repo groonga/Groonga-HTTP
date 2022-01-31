@@ -140,4 +140,32 @@ my @result = $groonga->select(
 
 ```
 
+## Set weight to the column
+
+Groonga-HTTP can set the weight to a column.
+We adjust the value of score by this feature.
+
+For example, the weight of the content column is twice in the following example.
+This weight allocation means content column value is more important rather than _key column value.
+
+Example:
+
+```
+my @result = $groonga->select(
+   table => 'Entries',
+   match_columns => '_key || content * 2',
+   query => 'groonga',
+   output_columns => '_key,content,_score'
+);
+
+# Result
+# [
+#   [
+#     "Groonga",
+#     "I started to use Groonga. It's very fast!",
+#     3,
+#   ]
+# ],
+```
+
 [install]:../install/

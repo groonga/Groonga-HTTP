@@ -466,4 +466,67 @@ my $groonga = Groonga::HTTP->new(
   );
 }
 
+# Use match_columns
+
+{
+  my @result = $groonga->select(
+     table => 'Entries',
+     match_columns => 'content',
+     query => 'fast',
+     output_columns => '_key,content,_score'
+  );
+
+  is(
+    $result[0],
+    2,
+    "select returns correct number of hit"
+  );
+
+  is(
+    $result[1],
+    [
+      [
+        "Groonga",
+        "I started to use Groonga. It's very fast!",
+        1,
+      ],
+      [
+        "Mroonga",
+        "I also started to use Mroonga. It's also very fast! Really fast!",
+        2,
+      ]
+    ],
+    "select returns a correct record"
+  );
+}
+
+# Use match_columns with weight
+
+{
+  my @result = $groonga->select(
+     table => 'Entries',
+     match_columns => '_key || content * 2',
+     query => 'groonga',
+     output_columns => '_key,content,_score'
+  );
+
+  is(
+    $result[0],
+    1,
+    "select returns correct number of hit"
+  );
+
+  is(
+    $result[1],
+    [
+      [
+        "Groonga",
+        "I started to use Groonga. It's very fast!",
+        3,
+      ]
+    ],
+    "select returns a correct record"
+  );
+}
+
 done_testing();

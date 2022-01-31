@@ -138,4 +138,32 @@ my @result = $groonga->select(
 
 ```
 
+## カラムに重みを設定する
+
+Groonga-HTTPはカラムに重みを設定できます。
+この機能によってスコアーの値を調整できます。
+
+例えば、以下の例では、 content カラムの重みを2倍しています。
+これは、 _key カラムの値より content カラムの値のほうが重要だという意味になります。
+
+例:
+
+```
+my @result = $groonga->select(
+   table => 'Entries',
+   match_columns => '_key || content * 2',
+   query => 'groonga',
+   output_columns => '_key,content,_score'
+);
+
+# Result
+# [
+#   [
+#     "Groonga",
+#     "I started to use Groonga. It's very fast!",
+#     3,
+#   ]
+# ],
+```
+
 [install]:../install/

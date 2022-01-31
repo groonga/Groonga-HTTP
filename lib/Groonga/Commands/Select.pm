@@ -37,7 +37,8 @@ my @select_arguments = (
     'drilldown',
     'drilldown_filter',
     'drilldown_output_columns',
-    'dynamic_columns'
+    'dynamic_columns',
+    'match_columns'
 );
 
 sub new {
@@ -145,6 +146,10 @@ sub _parse_arguments {
             $parsed_arguments .=
                 "columns[" . $name . "].flags=". $args->{'dynamic_columns'}->{'flags'};
         }
+    }
+    if (exists($args->{'match_columns'})) {
+        $parsed_arguments .= '&';
+        $parsed_arguments .= "match_columns=" . $args->{'match_columns'};
     }
 
     return $parsed_arguments;
