@@ -25,7 +25,7 @@ use Groonga::Commands::Select;
 use strict;
 use warnings;
 
-our $VERSION = "0.05";
+our $VERSION = "0.06";
 
 my $host = '127.0.0.1';
 my $port = 10041;
