@@ -4,6 +4,13 @@ title: News
 
 # News
 
+## 0.05: 2022-02-03 {#version-0-05}
+
+### Improvements
+
+  * Add support for "match_columns" as the argument of "select"
+  * Add support for "drilldown_output_columns" as the argument of "select"
+
 ## 0.04: 2022-01-27 {#version-0-04}
 
 ### Improvements
