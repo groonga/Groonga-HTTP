@@ -4,7 +4,7 @@ Groonga::HTTP - Perl module for sending HTTP requests to Groonga.
 
 # INSTALL
 
-    % cpanm --notest git://github.com/groonga/Groonga-HTTP.git@0.05
+    % cpanm Groonga-HTTP
 
 # SYNOPSIS
 
