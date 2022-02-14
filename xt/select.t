@@ -15,7 +15,7 @@
 
 use Test2::V0;
 
-BEGIN { push @INC, '/Groonga-HTTP/lib' }
+BEGIN { push @INC, './lib' }
 use Groonga::HTTP;
 
 my $groonga = Groonga::HTTP->new(

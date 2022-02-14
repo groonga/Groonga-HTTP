@@ -48,7 +48,7 @@ cpanm \
 # Setting Groonga's database for executing tests
 rm -rf db
 mkdir db
-cat /Groonga-HTTP/t/fixture/*.grn > dump.grn
+cat /Groonga-HTTP/xt/fixture/*.grn > dump.grn
 groonga -n db/db < dump.grn
 groonga --protocol http -s db/db &
 

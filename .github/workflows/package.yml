@@ -34,7 +34,7 @@ jobs:
           run: |
             rm -rf db
             mkdir db
-            cat t/fixture/*.grn > dump.grn
+            cat xt/fixture/*.grn > dump.grn
             groonga -n db/db < dump.grn
         - name: Build package
           run: |
@@ -78,4 +78,4 @@ jobs:
               --rm \
               --volume ${PWD}:/Groonga-HTTP:ro \
               ${{ matrix.test-docker-image }} \
-              /Groonga-HTTP/t/install-test.sh
+              /Groonga-HTTP/xt/install-test.sh
