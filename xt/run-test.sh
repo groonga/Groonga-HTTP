@@ -43,7 +43,8 @@ ${DNF} install -y \
 # Install Perl Modules for executing tests
 cpanm \
     Test2::V0 \
-    LWP::UserAgent
+    LWP::UserAgent \
+    cpanm -n --with-recommends Minilla
 
 # Setting Groonga's database for executing tests
 rm -rf db
@@ -54,5 +55,6 @@ groonga --protocol http -s db/db &
 
 # Run test
 cd Groonga-HTTP
-prove -v
+minil test --all # Run tests for users
+prove -v xt      # Run tests for developers
 rm -rf /db
