@@ -13,7 +13,7 @@ Groonga-HTTPをインストールする前に [Groonga][groonga] をインスト
 ## AlmaLinux {#almalinux}
 
 ```console
-% cpanm --notest git://github.com/groonga/Groonga-HTTP.git@0.05
+% cpanm Groonga-HTTP
 ```
 
 [Groonga]:https://groonga.org/
