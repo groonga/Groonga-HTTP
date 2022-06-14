@@ -557,4 +557,37 @@ my $groonga = Groonga::HTTP->new(
   );
 }
 
+# Use query_expand
+
+{
+  my @result = $groonga->select(
+     table => 'Entries',
+     match_columns => 'content',
+     query => 'groonga',
+     query_expander => 'Thesaurus.synonym',
+     output_columns => '_key,content'
+  );
+
+  is(
+    $result[0],
+    2,
+    "select returns correct number of hit"
+  );
+
+  is(
+    $result[1],
+    [
+      [
+        "Groonga",
+        "I started to use Groonga. It's very fast!",
+      ],
+      [
+        "Good-bye Senna",
+        "I migrated all Senna system!",
+      ]
+    ],
+    "select returns a correct record"
+  );
+}
+
 done_testing();

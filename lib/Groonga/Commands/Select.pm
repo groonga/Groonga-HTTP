@@ -38,7 +38,8 @@ my @select_arguments = (
     'drilldown_filter',
     'drilldown_output_columns',
     'dynamic_columns',
-    'match_columns'
+    'match_columns',
+    'query_expander'
 );
 
 sub new {
@@ -150,6 +151,10 @@ sub _parse_arguments {
     if (exists($args->{'match_columns'})) {
         $parsed_arguments .= '&';
         $parsed_arguments .= "match_columns=" . $args->{'match_columns'};
+    }
+    if (exists($args->{'query_expander'})) {
+        $parsed_arguments .= '&';
+        $parsed_arguments .= "query_expander=" . $args->{'query_expander'};
     }
 
     return $parsed_arguments;
