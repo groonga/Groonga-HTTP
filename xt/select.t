@@ -529,4 +529,32 @@ my $groonga = Groonga::HTTP->new(
   );
 }
 
+# Use multiple target columns in match_columns
+
+{
+  my @result = $groonga->select(
+     table => 'Entries',
+     match_columns => 'content || n_likes || tag',
+     query => 'groonga',
+     output_columns => '_key,content'
+  );
+
+  is(
+    $result[0],
+    1,
+    "select returns correct number of hit"
+  );
+
+  is(
+    $result[1],
+    [
+      [
+        "Groonga",
+        "I started to use Groonga. It's very fast!",
+      ]
+    ],
+    "select returns a correct record"
+  );
+}
+
 done_testing();
