@@ -25,18 +25,27 @@ my $groonga = Groonga::HTTP->new(
 
 # Select no options
 {
-  my @result = $groonga->select(
+  my $result = $groonga->select(
      table => 'Site'
   );
 
   is(
-    $result[0],
+    $result->{'n_hits'},
     9,
     "select returns correct number of hit"
   );
 
+  my @records = ();
+  for (my $i = 0; $i < $result->{'n_hits'}; $i++) {
+    my @record = ();
+    push (@record, $result->{'records'}[$i]->{'_id'});
+    push (@record, $result->{'records'}[$i]->{'_key'});
+    push (@record, $result->{'records'}[$i]->{'title'});
+    $records[0][$i] = \@record;
+  }
+
   is(
-    $result[1],
+    $records[0],
     [
       [
         1,
@@ -82,27 +91,36 @@ my $groonga = Groonga::HTTP->new(
         9,
         'http://example.com/vdw',
         'test test record nine.'
-      ]
+      ],
     ],
-    "select returns a correct record"
+    "select returns a correct records"
   );
 }
 
 # Select specify output
 {
-  my @result = $groonga->select(
+  my $result = $groonga->select(
      table => 'Site',
-     output_columns => '_id, title'
+     output_columns => ["_id", "title"],
+     limit => 3
   );
 
   is(
-    $result[0],
+    $result->{'n_hits'},
     9,
     "select returns correct number of hit"
   );
 
+  my @records = ();
+  for (my $i = 0; $i < 3; $i++) {
+    my @record = ();
+    push (@record, $result->{'records'}[$i]->{'_id'});
+    push (@record, $result->{'records'}[$i]->{'title'});
+    $records[0][$i] = \@record;
+  }
+
   is(
-    $result[1],
+    $records[0],
     [
       [
         1,
@@ -116,80 +134,67 @@ my $groonga = Groonga::HTTP->new(
         3,
         'test test record three.'
       ],
-      [
-        4,
-        'test record four.'
-      ],
-      [
-        5,
-        'test test test record five.'
-      ],
-      [
-        6,
-        'test test test test record six.'
-      ],
-      [
-        7,
-        'test test test record seven.'
-      ],
-      [
-        8,
-        'test test record eight.'
-      ],
-      [
-        9,
-        'test test record nine.'
-      ]
     ],
-    "select returns a correct record"
+    "select returns a correct records"
   );
 }
 
 # Full text search
 {
-  my @result = $groonga->select(
+  my $result = $groonga->select(
      table => 'Site',
      columns => 'title',
      query => 'this',
-     output_columns => '_id, title'
+     output_columns => ["_id", "title"]
   );
 
   is(
-    $result[0],
+    $result->{'n_hits'},
     1,
     "select returns correct number of hit"
   );
 
+  my @record;
+  push (@record, $result->{'records'}[0]->{'_id'});
+  push (@record, $result->{'records'}[0]->{'title'});
+
   is(
-    $result[1],
+    \@record,
     [
-      [
-        1,
-        'This is test record 1!'
-      ]
+      1,
+      'This is test record 1!'
     ],
-    "select returns a correct record"
+    "select returns a correct the record of _id=1"
   );
+  @record = ();
 }
 
 # Specify sort_keys
 {
-  my @result = $groonga->select(
+  my $result = $groonga->select(
      table => 'Site',
      columns => 'title',
      query => 'six OR seven',
-     output_columns => '_id, title',
+     output_columns => ["_id", "title"],
      sort_keys => '-_id'
   );
 
   is(
-    $result[0],
+    $result->{'n_hits'},
     2,
     "select returns correct number of hit"
   );
 
+  my @records;
+  for (my $i = 0; $i < $result->{'n_hits'}; $i++) {
+    my @record = ();
+    push (@record, $result->{'records'}[$i]->{'_id'});
+    push (@record, $result->{'records'}[$i]->{'title'});
+    $records[0][$i] = \@record;
+  }
+
   is(
-    $result[1],
+    $records[0],
     [
       [
         7,
@@ -200,42 +205,13 @@ my $groonga = Groonga::HTTP->new(
         'test test test test record six.'
       ],
     ],
-    "select returns a correct record"
-  );
-}
-
-# Specify limit
-{
-  my @result = $groonga->select(
-     table => 'Site',
-     columns => 'title',
-     query => 'six OR seven',
-     output_columns => '_id, title',
-     sort_keys => '-_id',
-     limit => '1'
-  );
-
-  is(
-    $result[0],
-    2,
-    "select returns correct number of hit"
-  );
-
-  is(
-    $result[1],
-    [
-      [
-        7,
-        'test test test record seven.'
-      ]
-    ],
-    "select returns a correct record"
+    "select returns a correct records"
   );
 }
 
 # Synonym search
 {
-  my @result = $groonga->select(
+  my $result = $groonga->select(
      table => 'Entries',
      columns => 'content',
      query => 'mroonga',
@@ -243,13 +219,24 @@ my $groonga = Groonga::HTTP->new(
   );
 
   is(
-    $result[0],
+    $result->{'n_hits'},
     2,
     "select returns correct number of hit"
   );
 
+  my @records;
+  for (my $i = 0; $i < $result->{'n_hits'}; $i++) {
+    my @record = ();
+    push (@record, $result->{'records'}[$i]->{'_id'});
+    push (@record, $result->{'records'}[$i]->{'_key'});
+    push (@record, $result->{'records'}[$i]->{'content'});
+    push (@record, $result->{'records'}[$i]->{'n_likes'});
+    push (@record, $result->{'records'}[$i]->{'tag'});
+    $records[0][$i] = \@record;
+  }
+
   is(
-    $result[1],
+    $records[0],
     [
       [
         3,
@@ -270,97 +257,40 @@ my $groonga = Groonga::HTTP->new(
   );
 }
 
-# Drilldown
+# Use query_expand
 {
-  my @result = $groonga->select(
+  my $result = $groonga->select(
      table => 'Entries',
-     output_columns => '_key,tag',
-     drilldown => 'tag'
+     match_columns => 'content',
+     query => 'groonga',
+     query_expander => 'Thesaurus.synonym',
+     output_columns => ["_key","content"]
   );
 
   is(
-    $result[0],
-    3,
-    "select returns correct number of hit"
-  );
-
-  is(
-    $result[1],
-    [
-      [
-        "Hello",
-        1
-      ],
-      [
-        "Groonga",
-        2
-      ],
-      [
-        "Senna",
-        2
-      ]
-    ],
-    "select returns a correct record"
-  );
-}
-
-# Filter of the result of drilldown
-{
-  my @result = $groonga->select(
-     table => 'Entries',
-     output_columns => '_key,tag',
-     drilldown => 'tag',
-     drilldown_filter => '_nsubrecs > 1'
-  );
-
-  is(
-    $result[0],
+    $result->{'n_hits'},
     2,
     "select returns correct number of hit"
   );
 
+  my @records;
+  for (my $i = 0; $i < $result->{'n_hits'}; $i++) {
+    my @record = ();
+    push (@record, $result->{'records'}[$i]->{'_key'});
+    push (@record, $result->{'records'}[$i]->{'content'});
+    $records[0][$i] = \@record;
+  }
+
   is(
-    $result[1],
+    $records[0],
     [
       [
         "Groonga",
-        2
+        "I started to use Groonga. It's very fast!",
       ],
       [
-        "Senna",
-        2
-      ]
-    ],
-    "select returns a correct record"
-  );
-}
-
-# Specify output columns of the result of drilldown
-{
-  my @result = $groonga->select(
-     table => 'Entries',
-     output_columns => '_key,tag',
-     drilldown => 'tag',
-     drilldown_output_columns => '_key'
-  );
-
-  is(
-    $result[0],
-    3,
-    "select returns correct number of hit"
-  );
-
-  is(
-    $result[1],
-    [
-      [
-        "Hello"
-      ],
-      [
-        "Groonga"
-      ],
-      [
-        "Senna"
+        "Good-bye Senna",
+        "I migrated all Senna system!",
       ]
     ],
     "select returns a correct record"
@@ -370,14 +300,14 @@ my $groonga = Groonga::HTTP->new(
 # Use dynamic column: missing "name" argument
 {
   like dies {
-    my @result = $groonga->select(
+    my $result = $groonga->select(
        table => 'Entries',
        dynamic_columns => { stage => 'initial',
                             flags => 'COLUMN_SCALAR',
                             type => 'Bool',
                             value => 'n_likes >= 10'
                           },
-       output_columns => '_key,is_popular,n_likes'
+       output_columns => ["_key","is_popular","n_likes"]
     );
   }, qr/Missing required argument/, "Occures exception. Because missing required argument \"name\"";
 }
@@ -385,14 +315,14 @@ my $groonga = Groonga::HTTP->new(
 # Use dynamic column: missing "stage" argument
 {
   like dies {
-    my @result = $groonga->select(
+    my $result = $groonga->select(
        table => 'Entries',
        dynamic_columns => { name => 'is_popular',
                             flags => 'COLUMN_SCALAR',
                             type => 'Bool',
                             value => 'n_likes >= 10'
                           },
-       output_columns => '_key,is_popular,n_likes'
+       output_columns => ["_key","is_popular","n_likes"]
     );
   }, qr/Missing required argument/, "Occures exception. Because missing required argument \"stage\"";
 }
@@ -400,14 +330,14 @@ my $groonga = Groonga::HTTP->new(
 # Use dynamic column: missing "type" argument
 {
   like dies {
-    my @result = $groonga->select(
+    my $result = $groonga->select(
        table => 'Entries',
        dynamic_columns => { name => 'is_popular',
                             stage => 'initial',
                             flags => 'COLUMN_SCALAR',
                             value => 'n_likes >= 10'
                           },
-       output_columns => '_key,is_popular,n_likes'
+       output_columns => ["_key","is_popular","n_likes"]
     );
   }, qr/Missing required argument/, "Occures exception. Because missing required argument \"type\"";
 }
@@ -415,22 +345,21 @@ my $groonga = Groonga::HTTP->new(
 # Use dynamic column: missing "value" argument
 {
   like dies {
-    my @result = $groonga->select(
+    my $result = $groonga->select(
        table => 'Entries',
        dynamic_columns => { name => 'is_popular',
                             stage => 'initial',
                             flags => 'COLUMN_SCALAR',
                             type => 'Bool',
                           },
-       output_columns => '_key,is_popular,n_likes'
+       output_columns => ["_key","is_popular","n_likes"]
     );
   }, qr/Missing required argument/, "Occures exception. Because missing required argument \"value\"";
 }
 
-
 # Use dynamic column
 {
-  my @result = $groonga->select(
+  my $result = $groonga->select(
      table => 'Entries',
      dynamic_columns => { name => 'is_popular',
                           stage => 'initial',
@@ -439,17 +368,26 @@ my $groonga = Groonga::HTTP->new(
                           value => 'n_likes >= 10'
                         },
      filter => 'is_popular',
-     output_columns => '_key,is_popular,n_likes'
+     output_columns => ["_key","is_popular","n_likes"]
   );
 
   is(
-    $result[0],
+    $result->{'n_hits'},
     2,
     "select returns correct number of hit"
   );
 
+  my @records;
+  for (my $i = 0; $i < $result->{'n_hits'}; $i++) {
+    my @record = ();
+    push (@record, $result->{'records'}[$i]->{'_key'});
+    push (@record, $result->{'records'}[$i]->{'is_popular'});
+    push (@record, $result->{'records'}[$i]->{'n_likes'});
+    $records[0][$i] = \@record;
+  }
+
   is(
-    $result[1],
+    $records[0],
     [
       [
         "Groonga",
@@ -469,21 +407,30 @@ my $groonga = Groonga::HTTP->new(
 # Use match_columns
 
 {
-  my @result = $groonga->select(
+  my $result = $groonga->select(
      table => 'Entries',
      match_columns => 'content',
      query => 'fast',
-     output_columns => '_key,content,_score'
+     output_columns => ["_key","content","_score"]
   );
 
   is(
-    $result[0],
+    $result->{'n_hits'},
     2,
     "select returns correct number of hit"
   );
 
+  my @records;
+  for (my $i = 0; $i < $result->{'n_hits'}; $i++) {
+    my @record = ();
+    push (@record, $result->{'records'}[$i]->{'_key'});
+    push (@record, $result->{'records'}[$i]->{'content'});
+    push (@record, $result->{'records'}[$i]->{'_score'});
+    $records[0][$i] = \@record;
+  }
+
   is(
-    $result[1],
+    $records[0],
     [
       [
         "Groonga",
@@ -503,88 +450,59 @@ my $groonga = Groonga::HTTP->new(
 # Use match_columns with weight
 
 {
-  my @result = $groonga->select(
+  my $result = $groonga->select(
      table => 'Entries',
      match_columns => '_key || content * 2',
      query => 'groonga',
-     output_columns => '_key,content,_score'
+     output_columns => ["_key","content","_score"]
   );
 
   is(
-    $result[0],
+    $result->{'n_hits'},
     1,
     "select returns correct number of hit"
   );
 
+  my @record;
+  push (@record, $result->{'records'}[0]->{'_key'});
+  push (@record, $result->{'records'}[0]->{'content'});
+  push (@record, $result->{'records'}[0]->{'_score'});
+
   is(
-    $result[1],
+    \@record,
     [
-      [
-        "Groonga",
-        "I started to use Groonga. It's very fast!",
-        3,
-      ]
+      "Groonga",
+      "I started to use Groonga. It's very fast!",
+      3,
     ],
     "select returns a correct record"
   );
 }
 
 # Use multiple target columns in match_columns
-
 {
-  my @result = $groonga->select(
+  my $result = $groonga->select(
      table => 'Entries',
      match_columns => 'content || n_likes || tag',
      query => 'groonga',
-     output_columns => '_key,content'
+     output_columns => ["_key","content"]
   );
 
   is(
-    $result[0],
+    $result->{'n_hits'},
     1,
     "select returns correct number of hit"
   );
 
+  my @record;
+  push (@record, $result->{'records'}[0]->{'_key'});
+  push (@record, $result->{'records'}[0]->{'content'});
+
   is(
-    $result[1],
+    \@record,
     [
-      [
-        "Groonga",
-        "I started to use Groonga. It's very fast!",
-      ]
-    ],
-    "select returns a correct record"
-  );
-}
-
-# Use query_expand
-
-{
-  my @result = $groonga->select(
-     table => 'Entries',
-     match_columns => 'content',
-     query => 'groonga',
-     query_expander => 'Thesaurus.synonym',
-     output_columns => '_key,content'
-  );
-
-  is(
-    $result[0],
-    2,
-    "select returns correct number of hit"
-  );
-
-  is(
-    $result[1],
-    [
-      [
-        "Groonga",
-        "I started to use Groonga. It's very fast!",
-      ],
-      [
-        "Good-bye Senna",
-        "I migrated all Senna system!",
-      ]
+      "Groonga",
+      "I started to use Groonga. It's very fast!",
     ],
     "select returns a correct record"
   );

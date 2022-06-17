@@ -168,23 +168,43 @@ sub _parse_arguments {
 
 sub _parse_result {
     my $result = shift;
+    my %result_set = ();
     my $i = 0;
 
     if ($use_drilldown) {
         $i += 1;
+        $result_set{'n_hits_drilldown'} = $result->[$i][0][0];
         $use_drilldown = 0;
     }
 
-    my $n_hits = $result->[$i][0][0];
-    my @records;
+    $result_set{'n_hits'} = $result->[0][0][0];
 
-    my $j = 0;
-    for ($j = 2; $j < ($n_hits+2); $j++) {
-        if (exists($result->[$i][$j])) {
-            push(@records, $result->[$i][$j]);
-        }
+    my @records;
+ 
+    my @keys;
+    for (my $i = 0; $result->[0][1][$i]; $i++) {
+        push(@keys, $result->[0][1][$i][0]);
     }
-    return ($n_hits, \@records);
+    for (my $i = 0, my $j = 2; $i < $result_set{'n_hits'}; $i++, $j++) {
+        my %record = ();
+        for (my $k=0; $k < @keys; $k++) {
+            $record{"$keys[$k]"} = "$result->[0][$j][$k]";
+        }
+        push(@records, \%record);
+    }
+    $result_set{'records'} = \@records;
+
+    #my $value = $result->[0][$j][$i];
+
+#    my @records;
+#    my $j = 0;
+#    for ($j = 2; $j < ($n_hits+2); $j++) {
+#        if (exists($result->[$i][$j])) {
+#            push(@records, $result->[$i][$j]);
+#        }
+#    }
+#    return ($n_hits, \@records);
+    return \%result_set;
 }
 
 sub _make_command {
