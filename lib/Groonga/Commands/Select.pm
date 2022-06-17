@@ -79,7 +79,13 @@ sub _parse_arguments {
     }
     if (exists($args->{'output_columns'})) {
         $parsed_arguments .= '&';
-        $parsed_arguments .= "output_columns=" . $args->{'output_columns'};
+        $parsed_arguments .= "output_columns=";
+
+        my $output_columns = $args->{'output_columns'};
+        foreach my $output_column (@$output_columns) {
+            $parsed_arguments .= $output_column . ',';
+        }
+        chop($parsed_arguments);
     }
     if (exists($args->{'query'})) {
         $parsed_arguments .= '&';
