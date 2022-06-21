@@ -65,6 +65,7 @@ use Groonga::HTTP;
       command_version => 1,
       default_command_version => 1,
       max_command_version => 3,
+      memory_map_size => E(),
       n_jobs => E(),
       features => E(),
       apache_arrow => E
