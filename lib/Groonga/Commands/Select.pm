@@ -169,11 +169,9 @@ sub _parse_arguments {
 sub _parse_result {
     my $result = shift;
     my %result_set = ();
-    my $i = 0;
 
     if ($use_drilldown) {
-        $i += 1;
-        $result_set{'n_hits_drilldown'} = $result->[$i][0][0];
+        $result_set{'n_hits_drilldown'} = $result->[1][0][0];
         $use_drilldown = 0;
     }
 
