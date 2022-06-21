@@ -178,15 +178,15 @@ sub _parse_result {
     $result_set{'n_hits'} = $result->[0][0][0];
 
     my @records;
- 
-    my @keys;
+
+    my @column_names;
     for (my $i = 0; $result->[0][1][$i]; $i++) {
-        push(@keys, $result->[0][1][$i][0]);
+        push(@column_names, $result->[0][1][$i][0]);
     }
     for (my $i = 0, my $j = 2; $i < $result_set{'n_hits'}; $i++, $j++) {
         my %record = ();
-        for (my $k=0; $k < @keys; $k++) {
-            $record{"$keys[$k]"} = "$result->[0][$j][$k]";
+        for (my $k=0; $k < @column_names; $k++) {
+            $record{"$column_names[$k]"} = "$result->[0][$j][$k]";
         }
         push(@records, \%record);
     }
