@@ -40,3 +40,6 @@ MYMETA.*
 /Groonga-HTTP-*
 
 /db
+
+xt/db
+xt/*.log
