@@ -169,15 +169,28 @@ sub _parse_arguments {
 sub _parse_result {
     my $result = shift;
     my %result_set = ();
+    my @records = ();
+    my @drilldown_result_records = ();
 
     if ($use_drilldown) {
         $result_set{'n_hits_drilldown'} = $result->[1][0][0];
+
+        my @column_names_drilldown;
+        for (my $i = 0; $result->[1][1][$i]; $i++) {
+            push(@column_names_drilldown, $result->[1][1][$i][0]);
+        }
+
+        for (my $i = 0, my $j = 2; $i < $result_set{'n_hits_drilldown'}; $i++, $j++) {
+            my %record = ();
+            for (my $k=0; $k < @column_names_drilldown; $k++) {
+                $record{"drilldown_" . $column_names_drilldown[$k]} = "$result->[1][$j][$k]";
+            }
+            push(@drilldown_result_records, \%record);
+        }
         $use_drilldown = 0;
     }
 
     $result_set{'n_hits'} = $result->[0][0][0];
-
-    my @records;
 
     my @column_names;
     for (my $i = 0; $result->[0][1][$i]; $i++) {
@@ -191,6 +204,7 @@ sub _parse_result {
         push(@records, \%record);
     }
     $result_set{'records'} = \@records;
+    $result_set{'drilldown_result_records'} = \@drilldown_result_records;
 
     #my $value = $result->[0][$j][$i];
 

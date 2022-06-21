@@ -508,4 +508,248 @@ my $groonga = Groonga::HTTP->new(
   );
 }
 
+# Drilldown
+{
+  my $result = $groonga->select(
+     table => 'Entries',
+     output_columns => ["_key","tag"],
+     drilldown => 'tag'
+  );
+
+  is(
+    $result->{'n_hits_drilldown'},
+    3,
+    "select returns correct number of hit (drilldown)"
+  );
+
+  my @drilldown_result_records;
+  for (my $i = 0; $i < $result->{'n_hits_drilldown'}; $i++) {
+    my @record = ();
+    push (@record, $result->{'drilldown_result_records'}[$i]->{'drilldown__key'});
+    push (@record, $result->{'drilldown_result_records'}[$i]->{'drilldown__nsubrecs'});
+    $drilldown_result_records[0][$i] = \@record;
+  }
+
+  is(
+    $drilldown_result_records[0],
+    [
+      [
+        "Hello",
+        1
+      ],
+      [
+        "Groonga",
+        2
+      ],
+      [
+        "Senna",
+        2
+      ]
+    ],
+    "select returns a correct record (drilldown)"
+  );
+
+  is(
+    $result->{'n_hits'},
+    5,
+    "select returns correct number of hit"
+  );
+
+  my @records;
+  for (my $i = 0; $i < $result->{'n_hits'}; $i++) {
+    my @record = ();
+    push (@record, $result->{'records'}[$i]->{'_key'});
+    push (@record, $result->{'records'}[$i]->{'tag'});
+    $records[0][$i] = \@record;
+  }
+
+  is(
+    $records[0],
+    [
+      [
+        "The first post!",
+        "Hello"
+      ],
+      [
+        "Groonga",
+        "Groonga"
+      ],
+      [
+        "Mroonga",
+        "Groonga"
+      ],
+      [
+        "Good-bye Senna",
+        "Senna"
+      ],
+      [
+        "Good-bye Tritonn",
+        "Senna"
+      ],
+    ],
+    "select returns correct records"
+  );
+}
+
+# Filter of the result of drilldown
+{
+  my $result = $groonga->select(
+     table => 'Entries',
+     output_columns => ["_key","tag"],
+     drilldown => 'tag',
+     drilldown_filter => '_nsubrecs > 1'
+  );
+
+  is(
+    $result->{'n_hits_drilldown'},
+    2,
+    "select returns correct number of hit (drilldown)"
+  );
+
+  my @drilldown_result_records;
+  for (my $i = 0; $i < $result->{'n_hits_drilldown'}; $i++) {
+    my @record = ();
+    push (@record, $result->{'drilldown_result_records'}[$i]->{'drilldown__key'});
+    push (@record, $result->{'drilldown_result_records'}[$i]->{'drilldown__nsubrecs'});
+    $drilldown_result_records[0][$i] = \@record;
+  }
+
+  is(
+    $drilldown_result_records[0],
+    [
+      [
+        "Groonga",
+        2
+      ],
+      [
+        "Senna",
+        2
+      ]
+    ],
+    "select returns a correct record (drilldown)"
+  );
+
+  is(
+    $result->{'n_hits'},
+    5,
+    "select returns correct number of hit"
+  );
+
+  my @records;
+  for (my $i = 0; $i < $result->{'n_hits'}; $i++) {
+    my @record = ();
+    push (@record, $result->{'records'}[$i]->{'_key'});
+    push (@record, $result->{'records'}[$i]->{'tag'});
+    $records[0][$i] = \@record;
+  }
+
+  is(
+    $records[0],
+    [
+      [
+        "The first post!",
+        "Hello"
+      ],
+      [
+        "Groonga",
+        "Groonga"
+      ],
+      [
+        "Mroonga",
+        "Groonga"
+      ],
+      [
+        "Good-bye Senna",
+        "Senna"
+      ],
+      [
+        "Good-bye Tritonn",
+        "Senna"
+      ],
+    ],
+    "select returns correct records"
+  );
+}
+
+# Specify output columns of the result of drilldown
+{
+  my $result = $groonga->select(
+     table => 'Entries',
+     output_columns => ["_key","tag"],
+     drilldown => 'tag',
+     drilldown_output_columns => '_key'
+  );
+
+  is(
+    $result->{'n_hits_drilldown'},
+    3,
+    "select returns correct number of hit (drilldown)"
+  );
+
+  my @drilldown_result_records;
+  for (my $i = 0; $i < $result->{'n_hits_drilldown'}; $i++) {
+    my @record = ();
+    push (@record, $result->{'drilldown_result_records'}[$i]->{'drilldown__key'});
+    $drilldown_result_records[0][$i] = \@record;
+  }
+
+  is(
+    $drilldown_result_records[0],
+    [
+      [
+        "Hello"
+      ],
+      [
+        "Groonga"
+      ],
+      [
+        "Senna"
+      ]
+    ],
+    "select returns a correct record (drilldown)"
+  );
+
+  is(
+    $result->{'n_hits'},
+    5,
+    "select returns correct number of hit"
+  );
+
+  my @records;
+  for (my $i = 0; $i < $result->{'n_hits'}; $i++) {
+    my @record = ();
+    push (@record, $result->{'records'}[$i]->{'_key'});
+    push (@record, $result->{'records'}[$i]->{'tag'});
+    $records[0][$i] = \@record;
+  }
+
+  is(
+    $records[0],
+    [
+      [
+        "The first post!",
+        "Hello"
+      ],
+      [
+        "Groonga",
+        "Groonga"
+      ],
+      [
+        "Mroonga",
+        "Groonga"
+      ],
+      [
+        "Good-bye Senna",
+        "Senna"
+      ],
+      [
+        "Good-bye Tritonn",
+        "Senna"
+      ],
+    ],
+    "select returns correct records"
+  );
+}
+
+
 done_testing();
