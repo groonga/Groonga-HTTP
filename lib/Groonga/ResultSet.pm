@@ -45,38 +45,4 @@ sub content {
     return $command_response;
 }
 
-#sub n_hits {
-#    return $command_response[0][0][0];
-#}
-#
-#sub n_hits_drilldown {
-#    return $command_response[1][0][0];
-#}
-#
-#sub records {
-#    my $n_hits = $command_response[0][0][0];
-#    my @records;
-#
-#    my $j = 0;
-#    for ($j = 2; $j < ($n_hits+2); $j++) {
-#        if (exists($result->[$i][$j])) {
-#            push(@records, $result->[$i][$j]);
-#        }
-#    }
-#    return \@records;
-#}
-#
-#sub records_drilldown {
-#    my $n_hits = $command_response[1][0][0];
-#    my @records;
-#
-#    my $j = 0;
-#    for ($j = 2; $j < ($n_hits+2); $j++) {
-#        if (exists($result->[$i][$j])) {
-#            push(@records, $result->[$i][$j]);
-#        }
-#    }
-#    return \@records;
-#}
-
 1;
