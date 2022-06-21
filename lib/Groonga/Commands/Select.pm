@@ -206,16 +206,6 @@ sub _parse_result {
     $result_set{'records'} = \@records;
     $result_set{'drilldown_result_records'} = \@drilldown_result_records;
 
-    #my $value = $result->[0][$j][$i];
-
-#    my @records;
-#    my $j = 0;
-#    for ($j = 2; $j < ($n_hits+2); $j++) {
-#        if (exists($result->[$i][$j])) {
-#            push(@records, $result->[$i][$j]);
-#        }
-#    }
-#    return ($n_hits, \@records);
     return \%result_set;
 }
 
