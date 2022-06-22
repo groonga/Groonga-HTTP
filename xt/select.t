@@ -591,6 +591,90 @@ my $groonga = Groonga::HTTP->new(
   );
 }
 
+# Drilldown sort
+{
+  my $result = $groonga->select(
+     table => 'Entries',
+     output_columns => ["_key","tag"],
+     drilldown => 'tag',
+     drilldown_sort_keys => '-_nsubrecs'
+  );
+
+  is(
+    $result->{'n_hits_drilldown'},
+    3,
+    "select returns correct number of hit (drilldown)"
+  );
+
+  my @drilldown_result_records;
+  for (my $i = 0; $i < $result->{'n_hits_drilldown'}; $i++) {
+    my @record = ();
+    push (@record, $result->{'drilldown_result_records'}[$i]->{'drilldown__key'});
+    push (@record, $result->{'drilldown_result_records'}[$i]->{'drilldown__nsubrecs'});
+    $drilldown_result_records[0][$i] = \@record;
+  }
+
+  is(
+    $drilldown_result_records[0],
+    [
+      [
+        "Groonga",
+        2
+      ],
+      [
+        "Senna",
+        2
+      ],
+      [
+        "Hello",
+        1
+      ]
+    ],
+    "select returns a correct record (drilldown)"
+  );
+
+  is(
+    $result->{'n_hits'},
+    5,
+    "select returns correct number of hit"
+  );
+
+  my @records;
+  for (my $i = 0; $i < $result->{'n_hits'}; $i++) {
+    my @record = ();
+    push (@record, $result->{'records'}[$i]->{'_key'});
+    push (@record, $result->{'records'}[$i]->{'tag'});
+    $records[0][$i] = \@record;
+  }
+
+  is(
+    $records[0],
+    [
+      [
+        "The first post!",
+        "Hello"
+      ],
+      [
+        "Groonga",
+        "Groonga"
+      ],
+      [
+        "Mroonga",
+        "Groonga"
+      ],
+      [
+        "Good-bye Senna",
+        "Senna"
+      ],
+      [
+        "Good-bye Tritonn",
+        "Senna"
+      ],
+    ],
+    "select returns correct records"
+  );
+}
+
 # Filter of the result of drilldown
 {
   my $result = $groonga->select(
@@ -802,6 +886,10 @@ my $groonga = Groonga::HTTP->new(
 
   my @record;
   push (@record, $result->{'records'}[0]->{'snippet_html'});
+
+  my $snippets = $result->{'records'}[0]->{'snippet_html'};
+  print Dumper $snippets->[0];
+#  print $length;
 
   is(
     \@record,

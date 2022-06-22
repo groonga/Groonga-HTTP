@@ -37,6 +37,7 @@ my @select_arguments = (
     'drilldown',
     'drilldown_filter',
     'drilldown_output_columns',
+    'drilldown_sort_keys',
     'dynamic_columns',
     'match_columns',
     'query_expander'
@@ -125,6 +126,11 @@ sub _parse_arguments {
         $use_drilldown = 1;
         $parsed_arguments .= '&';
         $parsed_arguments .= "drilldown_output_columns=" . $args->{'drilldown_output_columns'};
+    }
+    if (exists($args->{'drilldown_sort_keys'})) {
+        $use_drilldown = 1;
+        $parsed_arguments .= '&';
+        $parsed_arguments .= "drilldown_sort_keys=" . $args->{'drilldown_sort_keys'};
     }
     if (exists($args->{'dynamic_columns'})) {
         if (exists($args->{'dynamic_columns'}->{'name'})
