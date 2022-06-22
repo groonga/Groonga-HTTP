@@ -2,6 +2,8 @@ Revision history for Perl extension Groonga-HTTP
 
 {{$NEXT}}
 
+    - Add support for "drilldown_sort_keys" as the argument of "select".
+
 1.04 2022-06-22T12:23:25Z
 
     - Add support for using multiple "snippet_html".
