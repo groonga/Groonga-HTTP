@@ -205,11 +205,7 @@ sub _parse_result {
     for (my $i = 0, my $j = 2; $i < $result_set{'n_hits'}; $i++, $j++) {
         my %record = ();
         for (my $k=0; $k < @column_names; $k++) {
-            if (exists($record{"$column_names[$k]"})) {
-                push( @{ $record{"$column_names[$k]"} }, @{$result->[0][$j][$k]} );
-            } else {
-                $record{"$column_names[$k]"} = $result->[0][$j][$k];
-            }
+            $record{"$column_names[$k]"} = "$result->[0][$j][$k]";
         }
         push(@records, \%record);
     }
