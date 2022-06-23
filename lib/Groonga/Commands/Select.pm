@@ -133,31 +133,36 @@ sub _parse_arguments {
         $parsed_arguments .= "drilldown_sort_keys=" . $args->{'drilldown_sort_keys'};
     }
     if (exists($args->{'dynamic_columns'})) {
-        if (exists($args->{'dynamic_columns'}->{'name'})
-            && exists($args->{'dynamic_columns'}->{'stage'})
-            && exists($args->{'dynamic_columns'}->{'type'})
-            && exists($args->{'dynamic_columns'}->{'value'})
-           ) {
-            ;
-        } else {
-            croak "Missing required argument";
-        }
-        my $name = $args->{'dynamic_columns'}->{'name'};
+        my $dynamic_columns = $args->{'dynamic_columns'};
 
-        $parsed_arguments .= '&';
-        $parsed_arguments .=
-            "columns[" . $name . "].stage=". $args->{'dynamic_columns'}->{'stage'};
-        $parsed_arguments .= '&';
-        $parsed_arguments .=
-            "columns[" . $name . "].type=". $args->{'dynamic_columns'}->{'type'};
-        $parsed_arguments .= '&';
-        $parsed_arguments .=
-            "columns[" . $name . "].value=". $args->{'dynamic_columns'}->{'value'};
+        for (my $i = 0; $i < scalar(@$dynamic_columns); $i++) {
+            if (exists($dynamic_columns->[$i]->{'name'})
+                && exists($dynamic_columns->[$i]->{'stage'})
+                && exists($dynamic_columns->[$i]->{'type'})
+                && exists($dynamic_columns->[$i]->{'value'})
+               ) {
+                ;
+            } else {
+                croak "Missing required argument";
+            }
 
-        if (exists($args->{'dynamic_columns'}->{'flags'})) {
+            my $name = $dynamic_columns->[$i]->{'name'};
+
             $parsed_arguments .= '&';
             $parsed_arguments .=
-                "columns[" . $name . "].flags=". $args->{'dynamic_columns'}->{'flags'};
+                "columns[" . $name . "].stage=". $dynamic_columns->[$i]->{'stage'};
+            $parsed_arguments .= '&';
+            $parsed_arguments .=
+                "columns[" . $name . "].type=". $dynamic_columns->[$i]->{'type'};
+            $parsed_arguments .= '&';
+            $parsed_arguments .=
+                "columns[" . $name . "].value=". $dynamic_columns->[$i]->{'value'};
+
+            if (exists($dynamic_columns->[$i]->{'flags'})) {
+                $parsed_arguments .= '&';
+                $parsed_arguments .=
+                    "columns[" . $name . "].flags=". $dynamic_columns->[$i]->{'flags'};
+            }
         }
     }
     if (exists($args->{'match_columns'})) {
