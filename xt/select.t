@@ -835,4 +835,36 @@ my $groonga = Groonga::HTTP->new(
   );
 }
 
+# Snippet
+{
+  my $result = $groonga->select(
+     table => 'Site',
+     match_columns => 'title',
+     query => 'This',
+     output_columns => ["_id", "snippet_html(title)"],
+     limit => 3
+  );
+
+  is(
+    $result->{'n_hits'},
+    1,
+    "select returns correct number of hit"
+  );
+
+  my @record;
+  push (@record, $result->{'records'}[0]->{'_id'});
+  push (@record, $result->{'records'}[0]->{'snippet_html'});
+
+  is(
+    \@record,
+    [
+      1,
+      [
+        "<span class=\"keyword\">This</span> is test record 1!"
+      ]
+    ],
+    "select returns a correct records"
+  );
+}
+
 done_testing();
