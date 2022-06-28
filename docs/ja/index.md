@@ -12,10 +12,10 @@ title: none
   <p>
     <a href="tutorial/"
        class="btn btn-primary btn-lg"
-       role="button">Try tutorial</a>
+       role="button">チュートリアルをやってみる</a>
     <a href="install/"
        class="btn btn-primary btn-lg"
-       role="button">Install</a>
+       role="button">インストール</a>
   </p>
 </div>
 
