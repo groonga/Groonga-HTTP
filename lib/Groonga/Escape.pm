@@ -30,14 +30,46 @@ sub new {
     $ffi = FFI::Platypus->new( api => 2);
     $ffi->lib(find_lib_or_die lib => 'groonga');
 
+    #grn_rc grn_ctx_init(grn_ctx *ctx, int flags)
+    $ffi->type('opaque' => 'grn_ctx');
+    $ffi->attach('grn_ctx_init' => ['grn_ctx', 'int'] => 'sint32');
+
+    #grn_rc
+    #grn_expr_syntax_escape(grn_ctx *ctx, const char *string, int string_size,
+    #                       const char *target_characters,
+    #                       char escape_character,
+    #                       grn_obj *escaped_string)
+    $ffi->type('int' => 'character');
+    $ffi->type('opaque' => 'grn_obj');
+    $ffi->attach('grn_expr_syntax_escape' => [
+                                               'grn_ctx',
+                                               'string',
+                                               'int',
+                                               'string',
+                                               'string',
+                                               'character',
+                                               'grn_obj'
+                                             ] => 'sint32');
+    #grn_rc
+    #grn_expr_syntax_escape_query(grn_ctx *ctx, const char *query, int query_size,
+    #                             grn_obj *escaped_query)
+    $ffi->attach('grn_expr_syntax_escape_query' => [
+                                                     'grn_ctx',
+                                                     'string',
+                                                     'int',
+                                                     'grn_obj'
+                                                   ] => 'sint32');
+
     return bless $self, $class;
 }
 
 sub escape_query_value {
+#grn_expr_syntax_escape_query
     return "";
 }
 
-sub escape_filter_value {
+sub escape_filter_value {#
+#grn_expr_syntax_escape
     return "";
 }
 
