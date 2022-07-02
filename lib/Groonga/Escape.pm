@@ -18,7 +18,7 @@ package Groonga::Escape;
 use strict;
 use warnings;
 
-use FFI::platypus;
+use FFI::Platypus;
 use FFI::CheckLib;
 
 my $ffi = undef;
