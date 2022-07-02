@@ -943,4 +943,56 @@ my $groonga = Groonga::HTTP->new(
   );
 }
 
+# Use post_filter
+{
+  my @dynamic_columns = ();
+  my %dynamic_column_is_popular = (
+      name => 'is_popular',
+      stage => 'filtered',
+      type => 'Bool',
+      value => 'n_likes >= 10'
+  );
+  push(@dynamic_columns, \%dynamic_column_is_popular);
+
+  my $result = $groonga->select(
+    table => 'Entries',
+    dynamic_columns => \@dynamic_columns,
+    filter => 'content @ "Groonga" || content @ "Mroonga"',
+    post_filter => 'is_popular == true',
+    output_columns => ["_key", "n_likes", "is_popular"]
+  );
+
+  my @records;
+  for (my $i = 0; $i < $result->{'n_hits'}; $i++) {
+    my @record = ();
+    push (@record, $result->{'records'}[$i]->{'_key'});
+    push (@record, $result->{'records'}[$i]->{'n_likes'});
+    push (@record, $result->{'records'}[$i]->{'is_popular'});
+    $records[0][$i] = \@record;
+  }
+
+  is(
+    $result->{'n_hits'},
+    2,
+    "select returns correct number of hit"
+  );
+
+  is(
+    $records[0],
+    [
+      [
+        "Groonga",
+        10,
+        1 #true
+      ],
+      [
+        "Mroonga",
+        15,
+        1 #true
+      ]
+    ],
+    "select with post_filter returns a correct records"
+  );
+}
+
 done_testing();
