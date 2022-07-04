@@ -19,6 +19,7 @@ use LWP::UserAgent;
 use Carp 'croak';
 
 use Groonga::ResultSet;
+use URI ();
 
 use strict;
 use warnings;
@@ -37,8 +38,7 @@ sub new {
 }
 
 sub send {
-    my $command = $_[1];
-    my $query = $prefix . $command;
+    my $query = $_[1];
     my $user_agent = LWP::UserAgent->new;
 
     my $http_response = $user_agent->get($query);
@@ -55,6 +55,18 @@ sub send {
     } else {
         croak $http_response->status_line;
     }
+}
+
+sub query_form {
+    my $command = $_[1];
+    my $uri = URI->new($prefix . $command);
+
+    if (defined $_[2]) {
+        my $args = $_[2];
+        $uri->query_form($args);
+    }
+
+    return $uri
 }
 
 1;
