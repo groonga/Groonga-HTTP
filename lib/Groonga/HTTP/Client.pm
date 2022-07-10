@@ -69,16 +69,38 @@ sub send {
     }
 }
 
-sub query_form {
+sub send_post {
     my $command = $_[1];
-    my $uri = URI->new($prefix . $command);
+    my $uri = $prefix . $command;
 
     if (defined $_[2]) {
-        my $args = $_[2];
-        $uri->query_form($args);
+        my $include_uri_parameter = $_[2];
+        $uri .= $include_uri_parameter;
     }
+    unless (defined $_[3]) {
+        croak "Missing POST data";
+    }
+    my $post_values = $_[3];
 
-    return $uri
+    my $user_agent = LWP::UserAgent->new;
+    my $post_request = HTTP::Request->new(POST => $uri);
+    $post_request->content_type('application/json');
+    $post_request->content($post_values);
+
+    my $http_response = $user_agent->request($post_request);
+    if ($http_response->is_success) {
+        my $groonga_response =
+            Groonga::ResultSet->new(
+                decoded_content => $http_response->decoded_content
+            );
+        if ($groonga_response->is_success) {
+            return $groonga_response->content;
+        } else {
+            croak $groonga_response->content;
+        }
+    } else {
+        croak $http_response->status_line;
+    }
 }
 
 1;
