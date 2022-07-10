@@ -43,7 +43,8 @@ ${DNF} install -y \
 # Install Perl Modules for executing tests
 cpanm \
     Test2::V0 \
-    LWP::UserAgent
+    LWP::UserAgent \
+    JSON
 
 cpanm -n --with-recommends Minilla
 
