@@ -31,14 +31,9 @@ sub new {
     return bless $self, $class;
 }
 
-sub _make_query {
-    return $groonga_http_client->query_form('status');
-}
-
 sub execute {
     if (defined $groonga_http_client) {
-        my $query = _make_query;
-        return $groonga_http_client->send($query);
+        return $groonga_http_client->send('status');
     }
     return;
 }

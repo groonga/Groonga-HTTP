@@ -37,11 +37,23 @@ sub new {
     return bless $self, $class;
 }
 
-sub send {
-    my $query = $_[1];
-    my $user_agent = LWP::UserAgent->new;
+sub _uri_encode {
+    my $command = $_[1];
+    my $uri_encoded_query = URI->new($prefix . $command);
 
-    my $http_response = $user_agent->get($query);
+    if (defined $_[2]) {
+        my $command_args = $_[2];
+        $uri_encoded_query->query_form($command_args);
+    }
+
+    return $uri_encoded_query;
+}
+
+sub send {
+    my $uri_encoded_query = _uri_encode(@_);
+
+    my $user_agent = LWP::UserAgent->new;
+    my $http_response = $user_agent->get($uri_encoded_query);
     if ($http_response->is_success) {
         my $groonga_response =
             Groonga::ResultSet->new(

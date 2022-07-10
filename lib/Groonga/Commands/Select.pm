@@ -207,14 +207,9 @@ sub _parse_result {
     return \%result_set;
 }
 
-sub _make_query {
-    return $groonga_http_client->query_form('select', $command_args);
-}
-
 sub execute {
     if (defined $groonga_http_client) {
-        my $query = _make_query;
-        return _parse_result($groonga_http_client->send($query));
+        return _parse_result($groonga_http_client->send('select', $command_args));
     }
     return;
 }
