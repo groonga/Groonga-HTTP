@@ -19,9 +19,12 @@ use LWP::UserAgent;
 
 use Groonga::ResultSet;
 use Groonga::HTTP::Client;
+
+use Groonga::Commands::Delete;
+use Groonga::Commands::Load;
 use Groonga::Commands::Status;
 use Groonga::Commands::Select;
-use Groonga::Commands::Load;
+
 
 use strict;
 use warnings;
@@ -72,6 +75,16 @@ sub load {
             %args
         );
     return $load->execute;
+}
+
+sub delete {
+    my ($client, %args) = @_;
+    my $delete =
+        Groonga::Commands::Delete->new(
+            client => $groonga_http_client,
+            %args
+        );
+    return $delete->execute;
 }
 
 1;
