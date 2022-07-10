@@ -21,6 +21,7 @@ use Groonga::ResultSet;
 use Groonga::HTTP::Client;
 use Groonga::Commands::Status;
 use Groonga::Commands::Select;
+use Groonga::Commands::Load;
 
 use strict;
 use warnings;
@@ -61,6 +62,16 @@ sub select {
             %args
         );
     return $select->execute;
+}
+
+sub load {
+    my ($client, %args) = @_;
+    my $load =
+        Groonga::Commands::Load->new(
+            client => $groonga_http_client,
+            %args
+        );
+    return $load->execute;
 }
 
 1;
