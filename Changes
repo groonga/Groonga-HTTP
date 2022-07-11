@@ -2,6 +2,8 @@ Revision history for Perl extension Groonga-HTTP
 
 {{$NEXT}}
 
+1.08 2022-07-11T00:44:50Z
+
     - Add support for "delete" command.
       However, currently, we support only removal by "key".
       We don't support removal by "id" or "filter".
