@@ -118,6 +118,15 @@ my $groonga = Groonga::HTTP->new(
     ],
     "select returns correct records"
   );
+
+  my $delete_result = $groonga->delete(
+     table => 'Entries',
+     key => 'Load01'
+  );
+  my $delete_result = $groonga->delete(
+     table => 'Entries',
+     key => 'Load02'
+  );
 }
 
 done_testing();
