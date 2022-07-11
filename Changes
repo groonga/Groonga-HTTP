@@ -2,6 +2,9 @@ Revision history for Perl extension Groonga-HTTP
 
 {{$NEXT}}
 
+    - Drop unfinished feature.
+    - Add missin dependency modules.
+
 1.08 2022-07-11T00:44:50Z
 
     - Add support for "delete" command.
