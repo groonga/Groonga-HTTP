@@ -44,8 +44,10 @@
       },
       "runtime" : {
          "requires" : {
+            "JSON" : "0",
             "JSON::PP" : "0",
-            "LWP::UserAgent" : "0"
+            "LWP::UserAgent" : "0",
+            "URI" : "0"
          }
       },
       "test" : {
@@ -66,7 +68,7 @@
          "web" : "https://github.com/groonga/Groonga-HTTP"
       }
    },
-   "version" : "1.08",
+   "version" : "1.09",
    "x_serialization_backend" : "JSON::PP version 4.06",
    "x_static_install" : 1
 }
