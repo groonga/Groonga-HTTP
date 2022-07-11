@@ -2,6 +2,16 @@ Revision history for Perl extension Groonga-HTTP
 
 {{$NEXT}}
 
+    - Add support for "delete" command.
+      However, currently, we support only removal by "key".
+      We don't support removal by "id" or "filter".
+
+    - Add support for "load" command.
+
+    - Add support for HTTP POST request.
+
+    - Add support for URI encode.
+
 1.07 2022-07-04T07:48:55Z
 
     - Add support for "post_filter" as the argument of "select".
