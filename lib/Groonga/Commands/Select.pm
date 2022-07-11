@@ -41,8 +41,7 @@ my @select_arguments = (
     'dynamic_columns',
     'match_columns',
     'query_expander',
-    'post_filter',
-    'slices'
+    'post_filter'
 );
 
 sub new {
@@ -160,29 +159,6 @@ sub _parse_arguments {
     }
     if (exists($args->{'post_filter'})) {
         $parsed_arguments{'post_filter'} = $args->{'post_filter'};
-    }
-    if (exists($args->{'slices'})) {
-        my $slices = $args->{'slices'};
-
-        for (my $i = 0; $i < scalar(@$slices); $i++) {
-            if (exists($slices->[$i]->{'name'})
-                && (exists($slices->[$i]->{'query'})
-                    || exists($slices->[$i]->{'filter'})
-                   )
-               ) {
-                ;
-            } else {
-                croak "Missing required argument \"name\" or \"query\" or \"filter\"";
-            }
-
-            my $name = $slices->[$i]->{'name'};
-            if (exists($slices->[$i]->{'query'})) {
-                $parsed_arguments{'slices[' . $name . "].query"} = $slices->[$i]->{'query'};
-            }
-            if (exists($slices->[$i]->{'filter'})) {
-                $parsed_arguments{'slices[' . $name . "].filter"} = $slices->[$i]->{'filter'};
-            }
-        }
     }
 
     return \%parsed_arguments;
