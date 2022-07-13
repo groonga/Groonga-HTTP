@@ -18,59 +18,60 @@ package Groonga::Escape;
 use strict;
 use warnings;
 
-use FFI::Platypus;
-use FFI::CheckLib;
-
-my $ffi = undef;
+use Carp 'croak';
 
 sub new {
     my ($class, %args) = @_;
     my $self = {%args};
 
-    $ffi = FFI::Platypus->new( api => 2);
-    $ffi->lib(find_lib_or_die lib => 'groonga');
-
-    #grn_rc grn_ctx_init(grn_ctx *ctx, int flags)
-    $ffi->type('opaque' => 'grn_ctx');
-    $ffi->attach('grn_ctx_init' => ['grn_ctx', 'int'] => 'sint32');
-
-    #grn_rc
-    #grn_expr_syntax_escape(grn_ctx *ctx, const char *string, int string_size,
-    #                       const char *target_characters,
-    #                       char escape_character,
-    #                       grn_obj *escaped_string)
-    $ffi->type('int' => 'character');
-    $ffi->type('opaque' => 'grn_obj');
-    $ffi->attach('grn_expr_syntax_escape' => [
-                                               'grn_ctx',
-                                               'string',
-                                               'int',
-                                               'string',
-                                               'string',
-                                               'character',
-                                               'grn_obj'
-                                             ] => 'sint32');
-    #grn_rc
-    #grn_expr_syntax_escape_query(grn_ctx *ctx, const char *query, int query_size,
-    #                             grn_obj *escaped_query)
-    $ffi->attach('grn_expr_syntax_escape_query' => [
-                                                     'grn_ctx',
-                                                     'string',
-                                                     'int',
-                                                     'grn_obj'
-                                                   ] => 'sint32');
-
     return bless $self, $class;
 }
 
-sub escape_query_value {
-#grn_expr_syntax_escape_query
-    return "";
+
+sub _escape_value {
+    my $escape = '\\';
+    my ($raw_query, $escape_targets) = @_;
+    unless($raw_query) {
+        croak "Invalid arguments: ${raw_query}";
+    }
+
+    my $escaped_query = "";
+    foreach $ch (split //, $raw_query) {
+        foreach $escape_target (@$escape_targets) {
+            if ($ch eq $escape_target) {
+                $ch =~ s/$ch/$escape$ch/g;
+                last;
+            }
+        }
+        $escaped_query .= $ch;
+    }
+
+    return $escaped_query;
 }
 
 sub escape_filter_value {#
 #grn_expr_syntax_escape
     return "";
+}
+
+sub escape_query_value {
+    my $raw_query = shift;
+    my @escape_targets = (
+        '+',    #GRN_QUERY_AND
+        '-',    #GRN_QUERY_AND_NOT,
+        '>',    #GRN_QUERY_ADJ_INC,
+        '<',    #GRN_QUERY_ADJ_DEC,
+        '~',    #GRN_QUERY_ADJ_NEG,
+        '*',    #GRN_QUERY_PREFIX,
+        '(',    #GRN_QUERY_PARENL,
+        ')',    #GRN_QUERY_PARENR,
+        '"',    #GRN_QUERY_QUOTEL,
+        '\\',   #GRN_QUERY_ESCAPE,
+        ':',    #GRN_QUERY_COLUMN,
+        '\0'
+    );
+
+    return _escape_value($raw_query, \@escape_targets);
 }
 
 1;
