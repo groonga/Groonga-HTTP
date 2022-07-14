@@ -24,7 +24,7 @@ use Groonga::HTTP;
     my $escaped_query_value = $groonga->escape_query_value('a+B-c< >あいう~*()"\\\':');
     is(
       $escaped_query_value,
-      "a\\+B\\-c\\<\\ \\>あいう\\~\\*\\(\\)\\"\\\\\\\'\\:"
+      'a\\+B\\-c\\< \\>あいう\\~\\*\\(\\)\\"\\\\\'\\:'
     );
 }
 
