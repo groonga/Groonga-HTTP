@@ -21,7 +21,7 @@ use Groonga::HTTP;
 # Use query escape
 {
     my $groonga = Groonga::HTTP->new;
-    my $escaped_query_value = $groonga->escape_query_value('a+B-c< >あいう~*()"\\\':');
+    my $escaped_query_value = $groonga->groonga_query_escape('a+B-c< >あいう~*()"\\\':');
     is(
       $escaped_query_value,
       'a\\+B\\-c\\< \\>あいう\\~\\*\\(\\)\\"\\\\\'\\:'

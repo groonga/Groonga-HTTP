@@ -18,6 +18,8 @@ package Groonga::HTTP;
 use LWP::UserAgent;
 
 use Groonga::ResultSet;
+use Groonga::Escape;
+
 use Groonga::HTTP::Client;
 
 use Groonga::Commands::Delete;
@@ -85,6 +87,11 @@ sub delete {
             %args
         );
     return $delete->execute;
+}
+
+sub groonga_query_escape {
+    my ($client, $raw_query) = @_;
+    return Groonga::Escape->escape($raw_query);
 }
 
 1;
