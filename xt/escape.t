@@ -28,4 +28,40 @@ use Groonga::HTTP;
     );
 }
 
+# Invalid argument: specify undef
+{
+    my $groonga = Groonga::HTTP->new;
+
+    like dies {
+        my $escaped_query_value = $groonga->groonga_query_escape();
+    }, qr/Invalid arguments: /, "Occures exception. Because missing required argument";
+}
+
+# Invalid argument: specify ''
+{
+    my $groonga = Groonga::HTTP->new;
+
+    like dies {
+        my $escaped_query_value = $groonga->groonga_query_escape('');
+    }, qr/Invalid arguments: /, "Occures exception. Because missing required argument";
+}
+
+# Invalid argument: specify ''
+{
+    my $groonga = Groonga::HTTP->new;
+
+    like dies {
+        my $escaped_query_value = $groonga->groonga_query_escape('');
+    }, qr/Invalid arguments: /, "Occures exception. Because missing required argument";
+}
+
+# Invalid argument: specify ""
+{
+    my $groonga = Groonga::HTTP->new;
+
+    like dies {
+        my $escaped_query_value = $groonga->groonga_query_escape("");
+    }, qr/Invalid arguments: /, "Occures exception. Because missing required argument";
+}
+
 done_testing;
