@@ -27,51 +27,17 @@ sub new {
     return bless $self, $class;
 }
 
-
-sub _escape_value {
-    my $escape = '\\';
-    my ($raw_query, $escape_targets) = @_;
+sub escape {
+    my ($class, $raw_query) = @_;
     unless($raw_query) {
         croak "Invalid arguments: ${raw_query}";
     }
 
-    my $escaped_query = "";
-    foreach $ch (split //, $raw_query) {
-        foreach $escape_target (@$escape_targets) {
-            if ($ch eq $escape_target) {
-                $ch =~ s/$ch/$escape$ch/g;
-                last;
-            }
-        }
-        $escaped_query .= $ch;
-    }
+    my $escape = '\\';
+    my $escaped_query = $raw_query;
+    $escaped_query =~ s/([+\-><~*()"\\:])/$escape$1/g;
 
     return $escaped_query;
-}
-
-sub escape_filter_value {#
-#grn_expr_syntax_escape
-    return "";
-}
-
-sub escape_query_value {
-    my $raw_query = shift;
-    my @escape_targets = (
-        '+',    #GRN_QUERY_AND
-        '-',    #GRN_QUERY_AND_NOT,
-        '>',    #GRN_QUERY_ADJ_INC,
-        '<',    #GRN_QUERY_ADJ_DEC,
-        '~',    #GRN_QUERY_ADJ_NEG,
-        '*',    #GRN_QUERY_PREFIX,
-        '(',    #GRN_QUERY_PARENL,
-        ')',    #GRN_QUERY_PARENR,
-        '"',    #GRN_QUERY_QUOTEL,
-        '\\',   #GRN_QUERY_ESCAPE,
-        ':',    #GRN_QUERY_COLUMN,
-        '\0'
-    );
-
-    return _escape_value($raw_query, \@escape_targets);
 }
 
 1;
