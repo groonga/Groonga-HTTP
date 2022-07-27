@@ -2,6 +2,8 @@ Revision history for Perl extension Groonga-HTTP
 
 {{$NEXT}}
 
+    - Added support for multiple drilldown keys.
+
 1.10 2022-07-15T06:33:54Z
 
     - Added support for escaping search query.
