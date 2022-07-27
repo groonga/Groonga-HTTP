@@ -911,6 +911,130 @@ my $groonga = Groonga::HTTP->new(
   );
 }
 
+# Drilldown for multiple keys
+{
+  my $result = $groonga->select(
+     table => 'Entries',
+     output_columns => ["_key","tag"],
+     drilldown => '_key, tag'
+  );
+
+  is(
+    $result->{'n_hits_drilldown'}[0],
+    5,
+    "select returns correct number of hit (multiple drilldown keys)"
+  );
+
+  is(
+    $result->{'n_hits_drilldown'}[1],
+    3,
+    "select returns correct number of hit (multiple drilldown keys)"
+  );
+
+  my @drilldown_result_records;
+  for (my $i = 0; $i < $result->{'n_hits_drilldown'}[0]; $i++) {
+    my @record = ();
+    push (@record, $result->{'drilldown_result_records'}[0][$i]->{'drilldown__key'});
+    push (@record, $result->{'drilldown_result_records'}[0][$i]->{'drilldown__nsubrecs'});
+    $drilldown_result_records[0][$i] = \@record;
+  }
+
+  is(
+    $drilldown_result_records[0],
+    [
+      [
+        "The first post!",
+        1
+      ],
+      [
+        "Groonga",
+        1
+      ],
+      [
+        "Mroonga",
+        1
+      ],
+      [
+        "Good-bye Senna",
+        1
+      ],
+      [
+        "Good-bye Tritonn",
+        1
+      ]
+    ],
+    "select returns a correct first record (drilldown multiple keys)"
+  );
+
+  @drilldown_result_records = ();
+  for (my $i = 0; $i < $result->{'n_hits_drilldown'}[1]; $i++) {
+    my @record = ();
+    push (@record, $result->{'drilldown_result_records'}[1][$i]->{'drilldown__key'});
+    push (@record, $result->{'drilldown_result_records'}[1][$i]->{'drilldown__nsubrecs'});
+    $drilldown_result_records[0][$i] = \@record;
+  }
+
+  is(
+    $drilldown_result_records[0],
+    [
+      [
+        "Hello",
+        1
+      ],
+      [
+        "Groonga",
+        2
+      ],
+      [
+        "Senna",
+        2
+      ]
+    ],
+    "select returns a correct seconed record (drilldown multiple keys)"
+  );
+
+  is(
+    $result->{'n_hits'},
+    5,
+    "select returns correct number of hit"
+  );
+
+  my @records;
+  for (my $i = 0; $i < $result->{'n_hits'}; $i++) {
+    my @record = ();
+    push (@record, $result->{'records'}[$i]->{'_key'});
+    push (@record, $result->{'records'}[$i]->{'tag'});
+    $records[0][$i] = \@record;
+  }
+
+  is(
+    $records[0],
+    [
+      [
+        "The first post!",
+        "Hello"
+      ],
+      [
+        "Groonga",
+        "Groonga"
+      ],
+      [
+        "Mroonga",
+        "Groonga"
+      ],
+      [
+        "Good-bye Senna",
+        "Senna"
+      ],
+      [
+        "Good-bye Tritonn",
+        "Senna"
+      ],
+    ],
+    "select returns correct records"
+  );
+}
+
 # Snippet
 {
   my $result = $groonga->select(
