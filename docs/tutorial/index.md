@@ -7,6 +7,38 @@ title: Tutorial
 This document describes how to use Groonga-HTTP step by step.
 If you don't install Groonga-HTTP yet, [install][install] Groonga-HTTP before you read this document.
 
+## Full text search
+
+  * How to connect to Groonga HTTP server.
+  * How to execute full text search with Groonga.
+
+### How to connect to Groonga HTTP server
+
+We create Groonga::HTTP object with the ``new()`` method::
+
+```perl
+use Groonga::HTTP;
+
+my $groonga = Groonga::HTTP->new;
+```
+
+the ``new()`` method has two arguments as below.
+
+* ``host``: We can specify the IP address or host name of Groonga HTTP server.
+            The default value of ``host`` is ``127.0.0.1``.
+* ``port``: We can specify the port of Groonga HTTP server.
+            The default value of ``port`` is ``10041``.
+
+If we want to specify ``host`` and ``port`` except the default value, we create Groonga::HTTP object as below::
+
+```perl
+use Groonga::HTTP;
+
+my $groonga = Groonga::HTTP->new(
+  host => '192.0.2.0',
+  port => '20041');
+```
+
 ## Drilldown {#drilldown}
 
 drilldown enables us to get the number of records which belongs to specific the value of column at once.
