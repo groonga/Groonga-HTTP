@@ -23,13 +23,13 @@ Groonga-HTTP は CPAN で提供されています。
 
 Groonga-HTTP のインストールに Carton を使いたい場合は、 Groonga-HTTP を以下の手順でインストールします。
 
-最初に、以下のように cpanfile を記載します
+最初に、以下のように cpanfile を記載します。
 
 ```
 requires 'Groonga::HTTP'
 ```
 
-Second, we execute the following commands
+次に、以下のコマンドを実行します。
 
 ```console
 % sudo dnf install -y perl-App-cpanminus

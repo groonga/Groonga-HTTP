@@ -50,13 +50,16 @@ msgid ""
 msgstr "Groonga-HTTP のインストールに Carton を使いたい場合は、 Groonga-HTTP を以下の手順でインストールします。"
 
 msgid "At first, we write cpanfile sunch as the follow."
-msgstr "最初に、以下のように cpanfile を記載します"
+msgstr "最初に、以下のように cpanfile を記載します。"
 
 msgid ""
 "```\n"
 "requires 'Groonga::HTTP'\n"
 "```"
 msgstr ""
+
+msgid "Second, we execute the following commands"
+msgstr "次に、以下のコマンドを実行します。"
 
 msgid ""
 "```console\n"
