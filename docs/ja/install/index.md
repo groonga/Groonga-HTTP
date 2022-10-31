@@ -6,14 +6,14 @@ title: Install
 
 このドキュメントは、以下のプラットフォームでGroonga-HTTPをインストールする方法を説明します。
 
-  * [AlmaLinux](#almalinux)
+  * [AlmaLinux 8](#install-on-8)
 
 Groonga-HTTPをインストールする前に [Groonga][groonga] をインストールしなければなりません。
 
 Groonga-HTTP は CPAN で提供されています。
 以下の手順は、 CPAN で提供されている Groonga-HTTP を使う場合のものです。
 
-## AlmaLinux {#almalinux}
+## AlmaLinux 8 {#install-on-8}
 
 ```console
 % sudo dnf install -y perl-App-cpanminus

@@ -19,7 +19,7 @@ msgstr "# インストール"
 msgid "This document how to install Groonga-HTTP on the following platforms:"
 msgstr "このドキュメントは、以下のプラットフォームでGroonga-HTTPをインストールする方法を説明します。"
 
-msgid "  * [AlmaLinux](#almalinux)"
+msgid "  * [AlmaLinux 8](#install-on-8)"
 msgstr ""
 
 msgid "We must install [Groonga][groonga] before installing Groonga-HTTP."
@@ -33,7 +33,7 @@ msgstr ""
 "Groonga-HTTP は CPAN で提供されています。\n"
 "以下の手順は、 CPAN で提供されている Groonga-HTTP を使う場合のものです。"
 
-msgid "## AlmaLinux {#almalinux}"
+msgid "## AlmaLinux 8 {#install-on-8}"
 msgstr ""
 
 msgid ""
