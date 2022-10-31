@@ -14,7 +14,7 @@ If you don't install Groonga-HTTP yet, [install][install] Groonga-HTTP before yo
 
 ### How to connect to Groonga HTTP server
 
-We create Groonga::HTTP object with the ``new()`` method::
+We create ``Groonga::HTTP`` object with the ``new()`` method::
 
 ```perl
 use Groonga::HTTP;
@@ -29,7 +29,7 @@ the ``new()`` method has two arguments as below.
 * ``port``: We can specify the port of Groonga HTTP server.
             The default value of ``port`` is ``10041``.
 
-If we want to specify ``host`` and ``port`` except the default value, we create Groonga::HTTP object as below::
+If we want to specify ``host`` and ``port`` except the default value, we create ``Groonga::HTTP`` object as below::
 
 ```perl
 use Groonga::HTTP;
