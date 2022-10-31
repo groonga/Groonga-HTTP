@@ -6,6 +6,38 @@ title: Tutorial
 
 このドキュメントは、Groonga-HTTPの使い方を段階的に説明しています。まだ、Groonga-HTTPをインストールしていない場合は、このドキュメントを読む前にGroonga-HTTPをインストールしてください。
 
+## 全文検索
+
+  * Groonga HTTP server への接続方法。
+  * Groongaを使った全文検索。
+
+### Groonga HTTP server への接続方法
+
+``new()`` メソッドを使って、 ``Groonga::HTTP`` オブジェクトを作成します::
+
+```perl
+use Groonga::HTTP;
+
+my $groonga = Groonga::HTTP->new;
+```
+
+``new()`` メソッドは以下のように2つの引数を持ちます。
+
+* ``host``: Groonga HTTP server のIPアドレスまたはホスト名を指定できます。
+            ``host`` のデフォルト値は ``127.0.0.1`` です。
+* ``port``: Groonga HTTP server のポートを指定できます。
+            ``port`` のデフォルト値は ``10041`` です。
+
+``host`` と ``port`` にデフォルト値以外の値を指定したい場合は、 ``Groonga::HTTP`` オブジェクトを以下のように作成します::
+
+```perl
+use Groonga::HTTP;
+
+my $groonga = Groonga::HTTP->new(
+  host => '192.0.2.0',
+  port => '20041');
+```
+
 ## ドリルダウン {#drilldown}
 
 drilldown はカラムの値ごとにレコード数を数える機能を提供します。値ごとに別々のクエリーになるのではなく、1回のクエリーですべての値に対してレコード数を数えます。

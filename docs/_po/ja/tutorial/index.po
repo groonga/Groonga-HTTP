@@ -24,6 +24,61 @@ msgstr ""
 "このドキュメントは、Groonga-HTTPの使い方を段階的に説明しています。まだ、Groonga-HTTPをインストールしていない場合は、このドキュメント"
 "を読む前にGroonga-HTTPをインストールしてください。"
 
+msgid "## Full text search"
+msgstr "## 全文検索"
+
+msgid ""
+"  * How to connect to Groonga HTTP server.\n"
+"  * How to execute full text search with Groonga."
+msgstr ""
+"  * Groonga HTTP server への接続方法。\n"
+"  * Groongaを使った全文検索。"
+
+msgid "### How to connect to Groonga HTTP server"
+msgstr "### Groonga HTTP server への接続方法"
+
+msgid "We create ``Groonga::HTTP`` object with the ``new()`` method::"
+msgstr "``new()`` メソッドを使って、 ``Groonga::HTTP`` オブジェクトを作成します::"
+
+msgid ""
+"```perl\n"
+"use Groonga::HTTP;"
+msgstr ""
+
+msgid ""
+"my $groonga = Groonga::HTTP->new;\n"
+"```"
+msgstr ""
+
+msgid "the ``new()`` method has two arguments as below."
+msgstr "``new()`` メソッドは以下のように2つの引数を持ちます。"
+
+msgid ""
+"* ``host``: We can specify the IP address or host name of Groonga HTTP server."
+"\n"
+"            The default value of ``host`` is ``127.0.0.1``.\n"
+"* ``port``: We can specify the port of Groonga HTTP server.\n"
+"            The default value of ``port`` is ``10041``."
+msgstr ""
+"* ``host``: Groonga HTTP server のIPアドレスまたはホスト名を指定できます。\n"
+"            ``host`` のデフォルト値は ``127.0.0.1`` です。\n"
+"* ``port``: Groonga HTTP server のポートを指定できます。\n"
+"            ``port`` のデフォルト値は ``10041`` です。"
+
+msgid ""
+"If we want to specify ``host`` and ``port`` except the default value, we creat"
+"e ``Groonga::HTTP`` object as below::"
+msgstr ""
+"``host`` と ``port`` にデフォルト値以外の値を指定したい場合は、 ``Groonga::HTTP`` オブジェクトを以下のように作成します"
+"::"
+
+msgid ""
+"my $groonga = Groonga::HTTP->new(\n"
+"  host => '192.0.2.0',\n"
+"  port => '20041');\n"
+"```"
+msgstr ""
+
 msgid "## Drilldown {#drilldown}"
 msgstr "## ドリルダウン {#drilldown}"
 
@@ -36,11 +91,6 @@ msgstr ""
 
 msgid "Example:"
 msgstr "例:"
-
-msgid ""
-"```perl\n"
-"use Groonga::HTTP;"
-msgstr ""
 
 msgid "my $groonga = Groonga::HTTP->new;"
 msgstr ""
