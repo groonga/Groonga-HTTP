@@ -39,6 +39,15 @@ my $groonga = Groonga::HTTP->new(
   port => '20041');
 ```
 
+We call ``status()`` method with ``$groonga`` to confirm whether we connect to Groonga HTTP server normally or not::
+
+```perl
+use Groonga::HTTP;
+
+my $groonga = Groonga::HTTP->new;
+$groonga->status();
+```
+
 ## Drilldown {#drilldown}
 
 drilldown enables us to get the number of records which belongs to specific the value of column at once.
