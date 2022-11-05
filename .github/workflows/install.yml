@@ -1,0 +1,25 @@
+name: Install to AlmaLinux
+on:
+  schedule:
+    - cron: |
+        0 0 * * *
+jobs:
+  install:
+    name: Install to AlmaLinux
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - os: almaLinux-8
+    runs-on: macos-12
+    steps:
+      - uses: actions/checkout@v2
+      - name: Run VM
+        run: |
+          vagrant up ${{ matrix.os }}
+      - name: Install Groonga::HTTP
+        run: |
+          vagrant \
+            ssh ${{ matrix.os }} \
+            -- \
+            /vagrant/xt/install-test.sh
