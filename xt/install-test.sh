@@ -29,13 +29,13 @@ case ${major_version} in
     ;;
 esac
 
-${DNF} install -y \
+sudo ${DNF} install -y \
   gcc \
   git \
   perl \
   perl-App-cpanminus
 
 # Install Perl Modules
-cpanm Groonga::HTTP
+sudo cpanm Groonga::HTTP
 
 perl -e "use Groonga::HTTP"
