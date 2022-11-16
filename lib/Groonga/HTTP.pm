@@ -59,6 +59,13 @@ sub status {
     return $status->execute;
 }
 
+sub groonga_version {
+    my $status =
+        Groonga::Commands::Status->new(client => $groonga_http_client);
+    my $result = $status->execute;
+    return $result->{version};
+}
+
 sub select {
     my ($client, %args) = @_;
     my $select =
