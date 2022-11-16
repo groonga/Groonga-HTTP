@@ -25,11 +25,12 @@ case ${major_version} in
     DNF=yum
     ;;
   *)
-    DNF="dnf --enablerepo=powertools"
+    DNF="dnf"
     ;;
 esac
 
-sudo ${DNF} install -y \
+sudo ${DNF} update -y
+sudo ${DNF} --enablerepo=powertools install -y \
   gcc \
   git \
   perl \
