@@ -39,14 +39,16 @@ my $groonga = Groonga::HTTP->new(
   port => '20041');
 ```
 
-We call ``status()`` method with ``$groonga`` to confirm whether we connect to Groonga HTTP server normally or not::
+We call ``groonga_version()`` method with ``$groonga`` to confirm whether we connect to Groonga HTTP server normally or not::
 
 ```perl
 use Groonga::HTTP;
 
 my $groonga = Groonga::HTTP->new;
-$groonga->status();
+print $groonga->groonga_version();
 ```
+
+If we connect to Groonga HTTP server normally, the ``groonga_version()`` method returns the version of Groonga. 
 
 ## Drilldown {#drilldown}
 
