@@ -26,6 +26,7 @@ use Groonga::Commands::Delete;
 use Groonga::Commands::Load;
 use Groonga::Commands::Status;
 use Groonga::Commands::Select;
+use Groonga::Commands::CreateTable;
 
 
 use strict;
@@ -94,6 +95,16 @@ sub delete {
             %args
         );
     return $delete->execute;
+}
+
+sub create_table {
+    my ($client, %args) = @_;
+    my $create_table =
+        Groonga::Commands::CreateTable->new(
+            client => $groonga_http_client,
+            %args
+        );
+    return $create_table->execute;
 }
 
 sub groonga_query_escape {
