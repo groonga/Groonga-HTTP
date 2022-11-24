@@ -30,6 +30,15 @@ my $groonga = Groonga::HTTP->new();
     1,
     "successed create table."
   );
+
+  my $dump_results = $groonga->dump(
+     tables => 'Site'
+  );
+  is(
+    $dump_results[0],
+    "table_create Sites TABLE_HASH_KEY",
+    "dump returns correct results and successed create table."
+  );
 }
 
 done_testing();
