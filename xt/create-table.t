@@ -23,12 +23,21 @@ my $groonga = Groonga::HTTP->new();
 # Create Hash Table
 {
   my $create_table_result = $groonga->create_table(
-     table => 'Site'
+     name => 'Site'
   );
   is(
     $create_table_result->{'is_success'},
     1,
     "successed create table."
+  );
+
+  my $dump_results = $groonga->dump(
+     tables => 'Site'
+  );
+  is(
+    $dump_results[0],
+    "table_create Sites TABLE_HASH_KEY",
+    "dump returns correct results and successed create table."
   );
 }
 

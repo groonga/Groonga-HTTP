@@ -13,7 +13,7 @@
 # You should have received a copy of the GNU General Public License
 # along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-package Groonga::Commands::CreateTable;
+package Groonga::Commands::Delete;
 
 use Carp 'croak';
 
@@ -24,14 +24,13 @@ use JSON;
 my $groonga_http_client = undef;
 my $command_args = "";
 my @arguments = (
-    'name',
-    'flags',
-    'key_type',
-    'value_type',
-    'default_tokenizer',
-    'normalizer',
-    'token_filters',
-    'path'
+    'tables',
+    'dump_plugins',
+    'dump_schema',
+    'dump_records',
+    'dump_indexes',
+    'dump_configs',
+    'sort_hash_table'
 );
 
 sub new {
@@ -66,31 +65,26 @@ sub _parse_arguments {
 
     _is_valid_arguments($args);
 
-    if (exists($args->{'name'})) {
-        $parsed_arguments{'name'} = $args->{'name'};
-    } else {
-        croak 'Missing a require argument "table"';
+    if (exists($args->{'tables'})) {
+        $parsed_arguments{'tables'} = $args->{'tables'};
     }
-    if (exists($args->{'flags'})) {
-        $parsed_arguments{'flags'} = $args->{'flags'};
+    if (exists($args->{'dump_plugins'})) {
+        $parsed_arguments{'dump_plugins'} = $args->{'dump_plugins'};
     }
-    if (exists($args->{'key_type'})) {
-        $parsed_arguments{'key_type'} = $args->{'key_type'};
+    if (exists($args->{'dump_schema'})) {
+        $parsed_arguments{'dump_schema'} = $args->{'dump_schema'};
     }
-    if (exists($args->{'value_type'})) {
-        $parsed_arguments{'value_type'} = $args->{'value_type'};
+    if (exists($args->{'dump_records'})) {
+        $parsed_arguments{'dump_records'} = $args->{'dump_records'};
     }
-    if (exists($args->{'default_tokenizer'})) {
-        $parsed_arguments{'default_tokenizer'} = $args->{'default_tokenizer'};
+    if (exists($args->{'dump_indexes'})) {
+        $parsed_arguments{'dump_indexes'} = $args->{'dump_indexes'};
     }
-    if (exists($args->{'normalizer'})) {
-        $parsed_arguments{'normalizer'} = $args->{'normalizer'};
+    if (exists($args->{'dump_configs'})) {
+        $parsed_arguments{'dump_configs'} = $args->{'dump_configs'};
     }
-    if (exists($args->{'token_filters'})) {
-        $parsed_arguments{'token_filters'} = $args->{'token_filters'};
-    }
-    if (exists($args->{'path'})) {
-        $parsed_arguments{'path'} = $args->{'path'};
+    if (exists($args->{'sort_hash_table'})) {
+        $parsed_arguments{'sort_hash_table'} = $args->{'sort_hash_table'};
     }
 
     return \%parsed_arguments;
@@ -105,6 +99,7 @@ sub _parse_result {
     } else {
         $result = 0;
     }
+    print Dumper $result;
     $result_set{'is_success'} = $result;
 
     return \%result_set;
@@ -112,7 +107,7 @@ sub _parse_result {
 
 sub execute {
     if (defined $groonga_http_client) {
-        return _parse_result($groonga_http_client->send('table_create', $command_args));
+        return _parse_result($groonga_http_client->send('dump', $command_args));
     }
     return;
 }

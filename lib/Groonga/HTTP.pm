@@ -27,6 +27,7 @@ use Groonga::Commands::Load;
 use Groonga::Commands::Status;
 use Groonga::Commands::Select;
 use Groonga::Commands::CreateTable;
+use Groonga::Commands::Dump;
 
 
 use strict;
@@ -105,6 +106,16 @@ sub create_table {
             %args
         );
     return $create_table->execute;
+}
+
+sub dump {
+    my ($client, %args) = @_;
+    my $dump =
+        Groonga::Commands::Dump->new(
+            client => $groonga_http_client,
+            %args
+        );
+    return $dump->execute;
 }
 
 sub groonga_query_escape {
