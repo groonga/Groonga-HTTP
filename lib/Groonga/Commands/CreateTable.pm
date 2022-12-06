@@ -66,8 +66,8 @@ sub _parse_arguments {
 
     _is_valid_arguments($args);
 
-    if (exists($args->{'table'})) {
-        $parsed_arguments{'table'} = $args->{'table'};
+    if (exists($args->{'name'})) {
+        $parsed_arguments{'name'} = $args->{'name'};
     } else {
         croak 'Missing a require argument "table"';
     }
