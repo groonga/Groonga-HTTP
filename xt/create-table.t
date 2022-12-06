@@ -23,7 +23,7 @@ my $groonga = Groonga::HTTP->new();
 # Create Hash Table
 {
   my $create_table_result = $groonga->create_table(
-     table => 'Site'
+     name => 'Site'
   );
   is(
     $create_table_result->{'is_success'},
